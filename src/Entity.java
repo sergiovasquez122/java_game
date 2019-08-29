@@ -27,66 +27,66 @@ public abstract class Entity {
      *
      * @param e
      */
-    abstract void attack(Entity e);
+    public abstract void attack(Entity e);
     /**
      * Retrieve the entity's level
      * @return  the entity's level
      */
-    int getLevel(){
+    public int getLevel(){
         return level;
     }
     /**
      * Retrieve the entity's health
      * @return the entity's health
      */
-    int getHP(){
+    public int getHP(){
         return hp;
     }
     /**
      * Retrieve the entity's max health
      * @return the entity's max health
      */
-    int getMaxHP(){
+    public int getMaxHP(){
         return maxHp;
     }
     /**
      *
      */
-    void increaseLevel(){
+    public void increaseLevel(){
 
     }
     /**
      *
      * @param h
      */
-    void heal(int h){
+    public void heal(int h){
 
     }
     /**
      *
      * @param h
      */
-    void takeDamage(int h){
+    public void takeDamage(int h){
 
     }
     /**
      *
      * @param h
      */
-    void increaseMaxHP(int h){
+    public void increaseMaxHP(int h){
 
     }
     /**
      *
      * @param h
      */
-    void decreaseMaxHP(int h){
+    public void decreaseMaxHP(int h){
 
     }
     /**
      *
      */
-    void display(){
+    public void display(){
 
     }
 }
