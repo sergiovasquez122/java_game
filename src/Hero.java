@@ -123,13 +123,26 @@ public class Hero extends Entity implements Force{
     }
 
     /**
-     * checks if the hero has armor
+     * Checks if the hero has armor
      * @return true if the hero has armor
      */
     boolean hasArmor(){
         for(Item item : items){
             String itemName = item.getName();
             if(itemName.equals("Helmet") || itemName.equals("Shield") || itemName.equals("Chestplate")){
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * Checks if the hero has a Holocron
+     * @return true if the hero has a Holocron
+     */
+    boolean hasHolocron(){
+        for(Item item : items){
+            String itemName = item.getName();
+            if(itemName.equals("Holocron")){
                 return true;
             }
         }
