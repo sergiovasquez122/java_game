@@ -1,5 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * ItemGenerator class - Representation of single ItemGenerator
@@ -12,6 +15,19 @@ public class ItemGenerator {
      *  Constructor - fills the ItemGenerator with possible items
      */
     public ItemGenerator(){
+        final String fileName = "ItemList.txt";
+        try {
+            itemList = new ArrayList<>();
+
+            Scanner read = new Scanner(new File(fileName));
+            do{
+                String itemName = read.nextLine();
+                itemList.add(new Item(itemName));
+            }
+            while(read.hasNextLine());
+        } catch (FileNotFoundException fnf){
+            System.out.println("File was not found");
+        }
     }
     /**
      * Retrieves a random item from the ItemGenerator
@@ -22,5 +38,12 @@ public class ItemGenerator {
         int randomIndex = generator.nextInt(itemList.size());
         Item i = itemList.get(randomIndex);
         return new Item(i.getName());
+    }
+    public static void main(String[] args) {
+        ItemGenerator generator = new ItemGenerator();
+
+        for(int i = 0;i < 10; ++i){
+            System.out.println(generator.generateItems().getName());
+        }
     }
 }
