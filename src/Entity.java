@@ -24,8 +24,8 @@ public abstract class Entity {
         hp = maxHp;
     }
     /**
-     *
-     * @param e
+     * Attack another entity
+     * @param e the entity to be attacked
      */
     public abstract void attack(Entity e);
     /**
@@ -50,43 +50,55 @@ public abstract class Entity {
         return maxHp;
     }
     /**
-     *
+     * Increase the level of the entity by one
      */
-    public void increaseLevel(){
-
-    }
+    public void increaseLevel() { level++; }
     /**
-     *
-     * @param h
+     * Increases the entity hp up to it's maximum health
+     * @param h increase the entity's hp up to h amount
      */
     public void heal(int h){
-
+        if(hp + h > maxHp){
+            hp = maxHp;
+        } else{
+            hp += h;
+        }
     }
     /**
-     *
-     * @param h
+     * Decreases the entity hp by h
+     * @param h decrease the entity hp by h
      */
     public void takeDamage(int h){
-
+        if(hp - h < 0){
+            hp = 0;
+        } else{
+            hp -= h;
+        }
     }
     /**
-     *
-     * @param h
+     * Increase maxHp of the entity by h amount
+     * @param h the amount to increase the entity's hp by
      */
     public void increaseMaxHP(int h){
-
+        maxHp += h;
     }
     /**
-     *
-     * @param h
+     * Decrease the maxHp of the entity by h amount
+     * @param h the amount to decrease the entity's hp by
      */
     public void decreaseMaxHP(int h){
-
+        /* The health of the entity must at least be one */
+        if(maxHp - h > 1){
+            maxHp = 1;
+        } else {
+            maxHp -= h;
+        }
     }
     /**
-     *
+     * Displays the entity's attributes
      */
     public void display(){
-
+        System.out.println(name + " Lvl:" + level);
+        System.out.println("HP: " + hp + "/" + maxHp);
     }
 }
