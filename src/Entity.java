@@ -54,6 +54,11 @@ public abstract class Entity {
      */
     public void increaseLevel() { level++; }
     /**
+     * Retrieve the entity's name
+     * @return the entity's name
+     */
+    public String getName(){return name;}
+    /**
      * Increases the entity hp up to it's maximum health
      * @param h increase the entity's hp up to h amount
      */
