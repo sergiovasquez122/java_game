@@ -49,7 +49,7 @@ public class EnemyGenerator {
      * @param level the level of the enemy
      * @return Generate a random enemy with specified level
      */
-    Enemy generateEnemy(int level) {
+    public Enemy generateEnemy(int level) {
         Random generator = new Random();
         int randomIndex = generator.nextInt(enemyList.size());
         Enemy e = enemyList.get(randomIndex);

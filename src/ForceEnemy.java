@@ -33,7 +33,9 @@ public class ForceEnemy extends Enemy implements Force {
     }
     /**
      * Perform a force choke
-     * @return the attack power of the force choke */ @Override public int forceChoke() {
+     * @return the attack power of the force choke */
+    @Override
+    public int forceChoke() {
         return 7;
     }
     /**
@@ -42,11 +44,11 @@ public class ForceEnemy extends Enemy implements Force {
      */
     @Override
     public int forceSlam() {
-        int damage = (int) (Math.random() * getLevel())  + 1;
+        int damage = (int) (Math.random() * getLevel()) + 1;
         double prob = Math.random();
         final double THRESHOLD = 0.5;
         /* return different damage amount based on if probability reached certain threshold */
-        if(Double.compare(prob, THRESHOLD) < 0){
+        if (Double.compare(prob, THRESHOLD) < 0) {
             return 1;
         } else {
             return damage * 3;

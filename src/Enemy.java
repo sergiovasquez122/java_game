@@ -23,7 +23,7 @@ public class Enemy extends Entity{
      */
     @Override
     public void attack(Entity e){
-        final int CONSTANT_DAMAGE = 3;
+        final int CONSTANT_DAMAGE = 1;
         int attackPower = (int) (Math.random() * e.getLevel()) + CONSTANT_DAMAGE;
         e.takeDamage(attackPower);
     }
