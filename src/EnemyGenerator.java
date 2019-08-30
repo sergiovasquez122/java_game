@@ -27,7 +27,16 @@ public class EnemyGenerator {
             enemyList = new ArrayList<>();
             do {
                 String tokens [] = read.nextLine().split(",");
-
+                String enemyName = tokens[0];
+                final int DEFAULT_LEVEL = 1;
+                int enemyHealth = Integer.parseInt(tokens[1]);
+                String enemyType = tokens[2];
+                Item item = itemGenerator.generateItems();
+                if(enemyType.equals("n")){
+                    enemyList.add(new Enemy(enemyName, DEFAULT_LEVEL, enemyHealth, item));
+                } else {
+                    enemyList.add(new Enemy(enemyName, DEFAULT_LEVEL, enemyHealth, item));
+                }
             } while (read.hasNextLine());
         } catch (FileNotFoundException fnf) {
             System.out.println("File was not found");
@@ -45,6 +54,15 @@ public class EnemyGenerator {
         int randomIndex = generator.nextInt(enemyList.size());
         Enemy e = enemyList.get(randomIndex);
         Item item = itemGenerator.generateItems();
-        return new Enemy(e.getName(), level, e.getMaxHP(), item);
+        return new Enemy(e.getName(), level, level * e.getMaxHP(), item);
+    }
+
+    public static void main(String[] args) {
+        ItemGenerator itemGenerator = new ItemGenerator();
+        EnemyGenerator enemyGenerator = new EnemyGenerator(itemGenerator);
+        for(int i = 0;i < 10; ++i){
+            Enemy e = enemyGenerator.generateEnemy(10);
+            e.display();
+        }
     }
 }
