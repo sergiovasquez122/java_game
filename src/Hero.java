@@ -18,6 +18,7 @@ public class Hero extends Entity implements Force{
     public Hero(String name, Map map){
         super(name, 1, 15);
         items = new ArrayList<>();
+        location = map.findStart();
         this.map = map;
     }
 
@@ -226,5 +227,17 @@ public class Hero extends Entity implements Force{
         } else {
             return damage * 3;
         }
+    }
+
+    public static void main(String[] args) {
+        Map map = new Map();
+        Hero hero = new Hero("Luke",map);
+        hero.pickUpItem(new Item("Holocron"));
+        hero.pickUpItem(new Item("Holocron"));
+        hero.pickUpItem(new Item("Holocron"));
+        hero.pickUpItem(new Item("Holocron"));
+        hero.pickUpItem(new Item("Holocron"));
+        hero.removeItem("Holocron");
+        hero.displayItems();
     }
 }
