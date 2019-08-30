@@ -1,4 +1,8 @@
 import java.awt.Point;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /**
  * Map class - Representation of a map
@@ -27,10 +31,32 @@ public class Map {
 
     /**
      * Loads the map with a given level
+     *
      * @param mapNum the level of the map to be loaded
      */
     public void loadMap(int mapNum) {
+        /* currentMap is bounded between [1, 3] */
+        int currentMap = (mapNum % 3);
+        if (currentMap == 0) {
+            currentMap++;
+        }
 
+        try {
+            Scanner read = new Scanner(new File("Map" + currentMap + ".txt"));
+            int colIndex = 0;
+            do {
+                String []  tokens = read.nextLine().split(" ");
+                for(int i = 0; i < map.length; ++i){
+                    char c = tokens[i].charAt(0);
+                    map[i][colIndex] = c;
+                }
+                colIndex++;
+            }
+            while (read.hasNext());
+
+        } catch (FileNotFoundException fnf) {
+            System.out.println("File was not found");
+        }
     }
 
     /**
@@ -76,7 +102,7 @@ public class Map {
                 }
             }
         }
-        return null;
+        throw new RuntimeException("Starting location not found");
     }
 
     /**
