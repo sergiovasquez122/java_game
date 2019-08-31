@@ -93,7 +93,7 @@ public abstract class Entity {
      */
     public void decreaseMaxHP(int h){
         /* The health of the entity must at least be one */
-        if(maxHp - h > 1){
+        if(maxHp - h < 1){
             maxHp = 1;
         } else {
             maxHp -= h;
