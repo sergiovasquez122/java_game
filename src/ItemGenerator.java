@@ -33,7 +33,7 @@ public class ItemGenerator {
      * Retrieves a random item from the ItemGenerator
      * @return a random item from the ItemGenerator
      */
-    public Item generateItems(){
+    public Item generateItem(){
         Random generator = new Random();
         int randomIndex = generator.nextInt(itemList.size());
         Item i = itemList.get(randomIndex);
@@ -43,7 +43,7 @@ public class ItemGenerator {
         ItemGenerator generator = new ItemGenerator();
 
         for(int i = 0;i < 10; ++i){
-            System.out.println(generator.generateItems().getName());
+            System.out.println(generator.generateItem().getName());
         }
     }
 }

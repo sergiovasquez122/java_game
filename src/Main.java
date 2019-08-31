@@ -62,25 +62,32 @@ public class Main {
     }
 
     public static boolean fight(Hero hero, Enemy e){
-        System.out.print("You've encountered a " + e.getName());
-        Scanner input = new Scanner(System.in);
+        System.out.println("You've encountered a " + e.getName());
+        e.display();
         while(hero.getHP() != 0 || e.getHP() != 0){
-            e.display();
-            System.out.println("1. Fight");
-            System.out.println("2. Run Away");
-            try {
-                int choice = -1;
-                do {
-                   choice = input.nextInt();
-                }while(choice != 1 || choice != 2);
-            } catch (IllegalArgumentException iae){
-                System.out.println("Invalid input");
-            }
+            Scanner input = new Scanner(System.in);
+            int choice = input.nextInt();
+
         }
+        // Did the hero survive the fight?
         return hero.getHP() != 0;
     }
 
     public static void itemRoom(Hero hero, Map map, ItemGenerator itemGenerator){
-
+        Item item = itemGenerator.generateItem();
+        // Does the hero have enough room in his inventory to pick up the item
+        if(hero.pickUpItem(item)){
+            map.removeCharAtLoc(hero.getLocation());
+        } else{
+            System.out.println("Inventory full! Would you like to drop an item (y / n) ");
+            Scanner input = new Scanner(System.in);
+            String choice = input.nextLine();
+            if(choice.equals("y")){
+                System.out.println("Which item would you like to drop?");
+                int index = Integer.parseInt(input.nextLine());
+                hero.removeItem(index);
+                hero.pickUpItem(item);
+            }
+        }
     }
 }

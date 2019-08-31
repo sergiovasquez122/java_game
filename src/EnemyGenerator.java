@@ -31,7 +31,7 @@ public class EnemyGenerator {
                 final int DEFAULT_LEVEL = 1;
                 int enemyHealth = Integer.parseInt(tokens[1]);
                 String enemyType = tokens[2];
-                Item item = itemGenerator.generateItems();
+                Item item = itemGenerator.generateItem();
                 if(enemyType.equals("n")){
                     enemyList.add(new Enemy(enemyName, DEFAULT_LEVEL, enemyHealth, item));
                 } else {
@@ -53,7 +53,7 @@ public class EnemyGenerator {
         Random generator = new Random();
         int randomIndex = generator.nextInt(enemyList.size());
         Enemy e = enemyList.get(randomIndex);
-        Item item = itemGenerator.generateItems();
+        Item item = itemGenerator.generateItem();
         return new Enemy(e.getName(), level, level * e.getMaxHP(), item);
     }
 
