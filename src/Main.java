@@ -68,6 +68,14 @@ public class Main {
             e.display();
             System.out.println("1. Fight");
             System.out.println("2. Run Away");
+            try {
+                int choice = -1;
+                do {
+                   choice = input.nextInt();
+                }while(choice != 1 || choice != 2);
+            } catch (IllegalArgumentException iae){
+                System.out.println("Invalid input");
+            }
         }
         return hero.getHP() != 0;
     }
