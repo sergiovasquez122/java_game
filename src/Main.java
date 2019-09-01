@@ -21,15 +21,16 @@ public class Main {
         System.out.println("You've encountered a " + enemy.getName());
         enemy.display();
 
-        String menu = "1. Fight\n2. Run Away\n";
+        String menu = "1. Fight\n2. Run Away";
         boolean hero_died = false;
         int num_of_options = 2;
         // Hero has a med kit give them option of using it
         if ( hero.hasMedKit() ){
-            menu += "3. Med Kit\n";
+            menu += "\n3. Med Kit";
             num_of_options ++;
         }
 
+        System.out.println(menu);
         int choice = CheckInput.getIntRange(1, num_of_options);
         while(!hero_died) {
             if (choice == 1) {
