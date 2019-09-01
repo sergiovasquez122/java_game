@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 public class Main {
 
@@ -63,7 +62,34 @@ public class Main {
     }
 
     public static boolean fight(Hero hero, Enemy e){
-        return true;
+        if( hero.hasHolocron() ){
+            System.out.println("1. Use Blaster\n2. Use Force");
+            int choice = CheckInput.getIntRange(1, 2);
+            // If the choice is 2 then decide what force power to use
+            // else use the standard blaster attack
+            if(choice == 2) {
+                System.out.println(Force.FORCE_MENU);
+                int force_power_chosen = CheckInput.getIntRange(1, 3);
+                int damage_amount;
+                String power_chosen;
+                if( force_power_chosen == 1 ){
+                    damage_amount = hero.forcePush();
+                    power_chosen = "Force Push";
+                } else if( force_power_chosen == 2){
+                    damage_amount = hero.forceChoke();
+                    power_chosen = "Force Choke";
+                } else{
+                    damage_amount = hero.forceSlam();
+                    power_chosen = "Force Slam";
+                }
+                System.out.println(hero.getName() + "hits " + e.getName() + " with " + power_chosen + " for " + damage_amount + "damage.");
+                hero.removeItem("Holocron");
+            }
+        } else {
+            hero.attack(e);
+        }
+        e.attack(hero);
+        return hero.getHP() != 0;
     }
 
     /**
