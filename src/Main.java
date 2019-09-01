@@ -62,15 +62,7 @@ public class Main {
     }
 
     public static boolean fight(Hero hero, Enemy e){
-        System.out.println("You've encountered a " + e.getName());
-        e.display();
-        while(hero.getHP() != 0 || e.getHP() != 0){
-            Scanner input = new Scanner(System.in);
-            int choice = input.nextInt();
-
-        }
-        // Did the hero survive the fight?
-        return hero.getHP() != 0;
+        return true;
     }
 
     public static void itemRoom(Hero hero, Map map, ItemGenerator itemGenerator){
