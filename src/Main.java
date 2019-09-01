@@ -35,6 +35,9 @@ public class Main {
         while(!hero_died) {
             if (choice == 1) {
                 hero_died = fight(hero, enemy);
+                if( enemy.getHP() != 0 ){
+                    map.removeCharAtLoc(hero.getLocation());
+                }
             } else if (choice == 2) {
                 // Run away to an adjacent cell
                 // where the cells are encodes as
@@ -86,7 +89,10 @@ public class Main {
         } else {
             hero.attack(e);
         }
-        e.attack(hero);
+
+        if( e.getHP() != 0) {
+            e.attack(hero);
+        }
         return hero.getHP() != 0;
     }
 

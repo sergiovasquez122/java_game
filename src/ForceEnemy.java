@@ -62,7 +62,5 @@ public class ForceEnemy extends Enemy implements Force {
     public void attack(Entity e){
         /* Apply the damage of a regular enemy */
         super.attack(e);
-        int extraDamage = (int) (Math.random() * getLevel())  + 1;
-        e.takeDamage(extraDamage);
     }
 }

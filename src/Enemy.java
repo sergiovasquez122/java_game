@@ -25,6 +25,7 @@ public class Enemy extends Entity{
     public void attack(Entity e){
         final int CONSTANT_DAMAGE = 1;
         int attackPower = (int) (Math.random() * e.getLevel()) + CONSTANT_DAMAGE;
+        System.out.println(getName() + " attacks " + e.getName() + " for " + attackPower + " damage.");
         e.takeDamage(attackPower);
     }
     /**
