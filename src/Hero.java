@@ -29,6 +29,7 @@ public class Hero extends Entity implements Force{
     public void attack(Entity e){
         final int CONSTANT_DAMAGE = 3;
         int attackPower = (int) (Math.random() * getLevel()) + CONSTANT_DAMAGE;
+        System.out.println(getName() + " attacks " + e.getName() + " for " + attackPower + " damage.");
         e.takeDamage(attackPower);
     }
 
