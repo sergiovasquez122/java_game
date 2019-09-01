@@ -163,9 +163,9 @@ public class Hero extends Entity implements Force{
      * @return the character to the north of the hero
      */
     char goNorth(){
-        int y = location.y + 1;
-        location = new Point(location.x, y);
         map.reveal(location);
+        int x = location.x - 1;
+        location = new Point(x, location.y);
         return map.getCharAtLoc(location);
     }
 
@@ -174,9 +174,9 @@ public class Hero extends Entity implements Force{
      * @return the character to the south of the hero
      */
     char goSouth(){
-        int y = location.y - 1;
-        location = new Point(location.x, y);
         map.reveal(location);
+        int x = location.x + 1;
+        location = new Point(x, location.y);
         return map.getCharAtLoc(location);
     }
 
@@ -185,9 +185,9 @@ public class Hero extends Entity implements Force{
      * @return the character to the east of the hero
      */
     char goEast(){
-        int x = location.x + 1;
-        location = new Point(x, location.y);
         map.reveal(location);
+        int y = location.y + 1;
+        location = new Point(location.x, y);
         return map.getCharAtLoc(location);
     }
 
@@ -196,9 +196,9 @@ public class Hero extends Entity implements Force{
      * @return the character to the west of the hero
      */
     char goWest(){
-        int x = location.x - 1;
-        location = new Point(x, location.y);
         map.reveal(location);
+        int y = location.y - 1;
+        location = new Point(location.x, y);
         return map.getCharAtLoc(location);
     }
 

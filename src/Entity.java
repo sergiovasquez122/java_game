@@ -52,7 +52,10 @@ public abstract class Entity {
     /**
      * Increase the level of the entity by one
      */
-    public void increaseLevel() { level++; }
+    public void increaseLevel() {
+        level++;
+        increaseMaxHP(25);
+    }
     /**
      * Retrieve the entity's name
      * @return the entity's name
