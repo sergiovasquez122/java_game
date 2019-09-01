@@ -12,6 +12,7 @@ public class Main {
         EnemyGenerator enemyGenerator = new EnemyGenerator(itemGenerator);
 
         Hero hero = new Hero(name, map);
+        hero.pickUpItem(new Item("Holocron"));
 
         for(int i = 0;i < 5; ++i){
             for(int j = 0; j< 5; ++j){
@@ -81,6 +82,10 @@ public class Main {
             }
         }
         */
+       while( hero.getHP() != 0){
+            enemyRoom(hero, map, enemyGenerator);
+            hero.displayItems();
+       }
     }
 
     /**
@@ -156,7 +161,8 @@ public class Main {
                     damage_amount = hero.forceSlam();
                     power_chosen = "Force Slam";
                 }
-                System.out.println(hero.getName() + "hits " + e.getName() + " with " + power_chosen + " for " + damage_amount + "damage.");
+                System.out.println(hero.getName() + " hits  " + e.getName() + " with " + power_chosen + " for " + damage_amount + " damage.");
+                e.takeDamage(damage_amount);
                 hero.removeItem("Holocron");
             }
         } else {
