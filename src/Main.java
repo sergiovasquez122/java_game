@@ -92,6 +92,22 @@ public class Main {
 
         if( e.getHP() != 0) {
             e.attack(hero);
+        } else{
+            Item item = e.getItem();
+            if(hero.pickUpItem(item)){
+                System.out.println("You received a " + item.getName() + " from the enemy.");
+            } else {
+                System.out.println("Inventory full would you like to drop an item?");
+                // User decided to drop an item
+                if( CheckInput.getYesNo() ){
+                    System.out.println("What item would you liked to drop?");
+                    hero.displayItems();
+
+                    int index = CheckInput.getIntRange(1, 5);
+                    hero.removeItem(index - 1);
+                    hero.pickUpItem(item);
+                }
+            }
         }
         return hero.getHP() != 0;
     }
