@@ -3,13 +3,10 @@ public class Main {
 
     public static void main(String[] args) {
         Map map = new Map();
-        Hero hero = new Hero("Luke",map);
+        Hero hero = new Hero("Luke", map);
         ItemGenerator itemGenerator = new ItemGenerator();
-        for( int i = 0; i < 5; ++i){
-            hero.pickUpItem(itemGenerator.generateItem());
-        }
-        itemRoom(hero,map,itemGenerator);
-        hero.displayItems();
+        EnemyGenerator enemyGenerator = new EnemyGenerator(itemGenerator);
+        enemyRoom(hero, map, enemyGenerator);
     }
 
     /**
@@ -34,7 +31,7 @@ public class Main {
         }
 
         int choice = CheckInput.getIntRange(1, num_of_options);
-        while(hero_died) {
+        while(!hero_died) {
             if (choice == 1) {
                 hero_died = fight(hero, enemy);
             } else if (choice == 2) {
@@ -42,7 +39,7 @@ public class Main {
                 // where the cells are encodes as
                 // 0 = north, 1 = south, 2 = west, 3 = east
                 final int WALK_CHOICES = 4;
-                int random_walk = (int) Math.random() * WALK_CHOICES;
+                int random_walk = (int) (Math.random() * WALK_CHOICES);
                 if(random_walk == 0){
                     hero.goNorth();
                 } else if(random_walk == 1){
