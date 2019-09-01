@@ -76,10 +76,10 @@ public class Hero extends Entity implements Force{
      * @param name the name of the item to be removed
      * @return a item with the given name
      */
-    Item removeItem(String name){
+    public Item removeItem(String name){
         for(int i = 0;i < items.size(); ++i){
             Item item = items.get(i);
-            if(item.getName().equals(name)){
+            if(name.equals(item.getName())){
                 return items.remove(i);
             }
         }
@@ -91,7 +91,7 @@ public class Hero extends Entity implements Force{
      * @param index the index of the item to be removed
      * @return the item at the specified index
      */
-    Item removeItem(int index){
+    public Item removeItem(int index){
         return items.remove(index);
     }
 
@@ -99,7 +99,7 @@ public class Hero extends Entity implements Force{
      * Checks if the hero has a Med Kit
      * @return true if the hero has a Med Kit
      */
-    boolean hasMedKit(){
+    public boolean hasMedKit(){
         for(Item item : items){
             String itemName = item.getName();
             if(itemName.equals("Med Kit")){
@@ -113,7 +113,7 @@ public class Hero extends Entity implements Force{
      * Checks if the hero has a key
      * @return true if the hero has a key
      */
-    boolean hasKey(){
+    public boolean hasKey(){
         for(Item item : items){
             String itemName = item.getName();
             if(itemName.equals("Key")){
@@ -127,7 +127,7 @@ public class Hero extends Entity implements Force{
      * Checks if the hero has armor
      * @return true if the hero has armor
      */
-    boolean hasArmor(){
+    public boolean hasArmor(){
         for(Item item : items){
             String itemName = item.getName();
             if(itemName.equals("Helmet") || itemName.equals("Shield") || itemName.equals("Chestplate")){
@@ -140,7 +140,7 @@ public class Hero extends Entity implements Force{
      * Checks if the hero has a Holocron
      * @return true if the hero has a Holocron
      */
-    boolean hasHolocron(){
+    public boolean hasHolocron(){
         for(Item item : items){
             String itemName = item.getName();
             if(itemName.equals("Holocron")){
@@ -154,7 +154,7 @@ public class Hero extends Entity implements Force{
      * Return the hero's location
      * @return the Point indicating the hero's location
      */
-    Point getLocation(){
+    public Point getLocation(){
         return location;
     }
 
@@ -162,7 +162,7 @@ public class Hero extends Entity implements Force{
      * Move the hero to the north
      * @return the character to the north of the hero
      */
-    char goNorth(){
+    public char goNorth(){
         map.reveal(location);
         int x = location.x - 1;
         location = new Point(x, location.y);
@@ -173,7 +173,7 @@ public class Hero extends Entity implements Force{
      * Move the hero the south
      * @return the character to the south of the hero
      */
-    char goSouth(){
+    public char goSouth(){
         map.reveal(location);
         int x = location.x + 1;
         location = new Point(x, location.y);
@@ -184,7 +184,7 @@ public class Hero extends Entity implements Force{
      * Move the hero to the east
      * @return the character to the east of the hero
      */
-    char goEast(){
+    public char goEast(){
         map.reveal(location);
         int y = location.y + 1;
         location = new Point(location.x, y);
@@ -195,7 +195,7 @@ public class Hero extends Entity implements Force{
      * Move the hero to the west
      * @return the character to the west of the hero
      */
-    char goWest(){
+    public char goWest(){
         map.reveal(location);
         int y = location.y - 1;
         location = new Point(location.x, y);
@@ -246,12 +246,7 @@ public class Hero extends Entity implements Force{
     public static void main(String[] args) {
         Map map = new Map();
         Hero hero = new Hero("Luke",map);
-        hero.pickUpItem(new Item("Holocron"));
-        hero.pickUpItem(new Item("Holocron"));
-        hero.pickUpItem(new Item("Holocron"));
-        hero.pickUpItem(new Item("Holocron"));
-        hero.pickUpItem(new Item("Holocron"));
-        hero.removeItem("Holocron");
-        hero.displayItems();
+        hero.pickUpItem(new Item("Med Kit"));
+        hero.removeItem("Med Kit");
     }
 }

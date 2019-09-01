@@ -19,9 +19,10 @@ public class Main {
             }
         }
 
-        boolean game_over = false;
+       /*
+        boolean keep_playing = true;
 
-        while (!game_over) {
+        while ( keep_playing ) {
             hero.display();
             hero.displayItems();
             map.displayMap(hero.getLocation());
@@ -49,7 +50,7 @@ public class Main {
 
             switch (c) {
                 case 'e':
-                    game_over = enemyRoom(hero, map, enemyGenerator);
+                    keep_playing = enemyRoom(hero, map, enemyGenerator);
                     break;
                 case 'i':
                     itemRoom(hero, map, itemGenerator);
@@ -79,6 +80,7 @@ public class Main {
                     break;
             }
         }
+        */
     }
 
     /**
@@ -93,7 +95,6 @@ public class Main {
         enemy.display();
 
         String menu = "1. Fight\n2. Run Away";
-        boolean hero_died = false;
         int num_of_options = 2;
         // Hero has a med kit give them option of using it
         if (hero.hasMedKit()) {
@@ -103,11 +104,12 @@ public class Main {
 
         System.out.println(menu);
         int choice = CheckInput.getIntRange(1, num_of_options);
-        while (!hero_died) {
+        while ( hero.getHP()!= 0 ) {
             if (choice == 1) {
-                hero_died = fight(hero, enemy);
-                if (enemy.getHP() != 0) {
+                fight(hero, enemy);
+                if (enemy.getHP() == 0) {
                     map.removeCharAtLoc(hero.getLocation());
+                    return true;
                 }
             } else if (choice == 2) {
                 // Run away to an adjacent cell
@@ -130,7 +132,7 @@ public class Main {
                 hero.removeItem("Med Kit");
             }
         }
-        return !hero_died;
+        return hero.getHP() != 0;
     }
 
     public static boolean fight(Hero hero, Enemy e) {
