@@ -53,8 +53,9 @@ public abstract class Entity {
      * Increase the level of the entity by one
      */
     public void increaseLevel() {
+        final int HEALTH_INCREASE = 10;
         level++;
-        increaseMaxHP(25);
+        increaseMaxHP(HEALTH_INCREASE);
     }
     /**
      * Retrieve the entity's name

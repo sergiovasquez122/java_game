@@ -8,6 +8,9 @@ public class Main {
         String name = CheckInput.getString();
         Map map = new Map();
         Hero hero = new Hero(name, map);
+        ItemGenerator itemgenerator = new ItemGenerator();
+        EnemyGenerator enemyGenerator = new EnemyGenerator(itemgenerator);
+        int mapNum = 1;
         boolean game_over = false;
         while(!game_over){
             hero.display();
@@ -16,16 +19,53 @@ public class Main {
             System.out.println("1. Go North\n2. Go South\n3. Go East\n4. Go West\n5. Quit");
             int choice = CheckInput.getIntRange(1, 5);
 
+            char c;
             switch ( choice ){
-                case 1: hero.goNorth();
+                case 1:
+                c = hero.goNorth();
                 break;
-                case 2: hero.goSouth();
+                case 2:
+                c = hero.goSouth();
                 break;
-                case 3: hero.goEast();
+                case 3:
+                c = hero.goEast();
                 break;
-                case 4: hero.goWest();
+                case 4:
+                c = hero.goWest();
                 break;
-                case 5: return;
+                default: return;
+            }
+
+            switch ( c ){
+                case 'e':
+                    game_over = !enemyRoom(hero, map, enemyGenerator);
+                    break;
+                case 'i':
+                    itemRoom(hero, map, itemgenerator);
+                    break;
+                case 'f':
+                    boolean move_onto_next_level = false;
+                    if(hero.hasKey()){
+                        move_onto_next_level = true;
+                    } else if( hero.hasHolocron() ){
+                        System.out.println(" Would you like to use the force to try to open the door?");
+
+                        if( CheckInput.getYesNo() ){
+                            final int BOUND = 10;
+                            final int THRESHOLD = BOUND / 2 ;
+                            move_onto_next_level = new Random().nextInt(BOUND + 1) > THRESHOLD;
+                            if(! move_onto_next_level ){
+                                System.out.println("Attempt Failed!");
+                            }
+                        }
+                    }
+
+                    if( move_onto_next_level ){
+                        hero.increaseLevel();
+                        map.loadMap(++mapNum);
+                        System.out.println("Now on level " + mapNum);
+                    }
+                    break;
             }
         }
     }
