@@ -166,10 +166,17 @@ public class Hero extends Entity implements Force{
      * @return the character to the north of the hero
      */
     public char goNorth(){
-        map.reveal(location);
-        int x = location.x - 1;
-        location = new Point(x, location.y);
-        return map.getCharAtLoc(location);
+        // Try to move north if not possible then move back to where you were
+        try {
+            map.reveal(location);
+            int x = location.x - 1;
+            location = new Point(x, location.y);
+            return map.getCharAtLoc(location);
+        } catch ( IndexOutOfBoundsException e) {
+            int x = location.x + 1;
+            location = new Point( x, location.y );
+            return map.getCharAtLoc(location);
+        }
     }
 
     /**
@@ -177,10 +184,17 @@ public class Hero extends Entity implements Force{
      * @return the character to the south of the hero
      */
     public char goSouth(){
-        map.reveal(location);
-        int x = location.x + 1;
-        location = new Point(x, location.y);
-        return map.getCharAtLoc(location);
+        // Try to move south if not possible then move back to where you were
+        try {
+            map.reveal(location);
+            int x = location.x + 1;
+            location = new Point(x, location.y);
+            return map.getCharAtLoc(location);
+        } catch ( IndexOutOfBoundsException e) {
+            int x = location.x - 1;
+            location = new Point( x, location.y);
+            return map.getCharAtLoc(location);
+        }
     }
 
     /**
@@ -188,10 +202,17 @@ public class Hero extends Entity implements Force{
      * @return the character to the east of the hero
      */
     public char goEast(){
-        map.reveal(location);
-        int y = location.y + 1;
-        location = new Point(location.x, y);
-        return map.getCharAtLoc(location);
+        try {
+            // Try to move east if not possible then move back to where you were
+            map.reveal(location);
+            int y = location.y + 1;
+            location = new Point(location.x, y);
+            return map.getCharAtLoc(location);
+        } catch( IndexOutOfBoundsException e ) {
+            int y = location.y - 1;
+            location = new Point(location.x, y);
+            return map.getCharAtLoc(location);
+        }
     }
 
     /**
@@ -199,10 +220,17 @@ public class Hero extends Entity implements Force{
      * @return the character to the west of the hero
      */
     public char goWest(){
-        map.reveal(location);
-        int y = location.y - 1;
-        location = new Point(location.x, y);
-        return map.getCharAtLoc(location);
+        try {
+            // Try to move West if not possible then move back to where you were
+            map.reveal(location);
+            int y = location.y - 1;
+            location = new Point(location.x, y);
+            return map.getCharAtLoc(location);
+        } catch( IndexOutOfBoundsException e ) {
+            int y = location.y + 1;
+            location = new Point(location.x, y);
+            return map.getCharAtLoc(location);
+        }
     }
 
     /**
@@ -249,12 +277,38 @@ public class Hero extends Entity implements Force{
     public static void main(String[] args) {
         Map map = new Map();
         Hero hero = new Hero("Luke",map);
-        hero.pickUpItem(new Item("Holocron"));
-        hero.pickUpItem(new Item("Holocron"));
-        hero.pickUpItem(new Item("Holocron"));
-        hero.pickUpItem(new Item("Holocron"));
-        hero.pickUpItem(new Item("Holocron"));
-        hero.removeItem("Holocron");
-        hero.displayItems();
+        for( int i = 0; i < 5; ++i){
+            for( int j = 0; j < 5; ++j){
+                map.reveal(new Point(i, j));
+                map.removeCharAtLoc(new Point(i, j));
+            }
+        }
+        map.displayMap(hero.getLocation());
+        while(true){
+            hero.display();
+            hero.displayItems();
+            map.displayMap(hero.getLocation());
+            String menu = "1. Go North\n2. Go South\n3. Go East\n4. Go West\n5. Quit";
+            System.out.println(menu);
+            int choice = CheckInput.getIntRange(1, 5);
+            char c = 'n';
+            switch (choice) {
+                case 1:
+                    c = hero.goNorth();
+                    break;
+                case 2:
+                    c = hero.goSouth();
+                    break;
+                case 3:
+                    c = hero.goEast();
+                    break;
+                case 4:
+                    c = hero.goWest();
+                    break;
+                case 5:
+                    System.out.println("Game Over");
+                    return;
+            }
+        }
     }
 }
