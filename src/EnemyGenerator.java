@@ -22,9 +22,12 @@ public class EnemyGenerator {
      */
     public EnemyGenerator(ItemGenerator itemGenerator) {
         this.itemGenerator = itemGenerator;
+        enemyList = new ArrayList<>();
+
+        // Reading in from file
+        // Enemy data is in the form [name, health_multiplier, force_user]
         try {
             Scanner read = new Scanner(new File("EnemyList.txt"));
-            enemyList = new ArrayList<>();
             do {
                 String tokens [] = read.nextLine().split(",");
                 String enemyName = tokens[0];
@@ -35,7 +38,7 @@ public class EnemyGenerator {
                 if(enemyType.equals("n")){
                     enemyList.add(new Enemy(enemyName, DEFAULT_LEVEL, enemyHealth, item));
                 } else {
-                    enemyList.add(new Enemy(enemyName, DEFAULT_LEVEL, enemyHealth, item));
+                    enemyList.add(new ForceEnemy(enemyName, DEFAULT_LEVEL, enemyHealth, item));
                 }
             } while (read.hasNextLine());
         } catch (FileNotFoundException fnf) {
