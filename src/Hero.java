@@ -6,8 +6,11 @@ import java.util.ArrayList;
  * @author Sergio Vasquez
  */
 public class Hero extends Entity implements Force{
+    /** Inventory of the Hero */
     private ArrayList<Item> items;
+    /** The map that the current currently is in */
     private Map map;
+    /** The current position of the Hero */
     private Point location;
 
     /**
@@ -246,7 +249,12 @@ public class Hero extends Entity implements Force{
     public static void main(String[] args) {
         Map map = new Map();
         Hero hero = new Hero("Luke",map);
-        hero.pickUpItem(new Item("Med Kit"));
-        hero.removeItem("Med Kit");
+        hero.pickUpItem(new Item("Holocron"));
+        hero.pickUpItem(new Item("Holocron"));
+        hero.pickUpItem(new Item("Holocron"));
+        hero.pickUpItem(new Item("Holocron"));
+        hero.pickUpItem(new Item("Holocron"));
+        hero.removeItem("Holocron");
+        hero.displayItems();
     }
 }
