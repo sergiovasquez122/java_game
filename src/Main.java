@@ -33,7 +33,9 @@ public class Main {
                 case 4:
                 c = hero.goWest();
                 break;
-                default: return;
+                default:
+                System.out.println("Game Over");
+                return;
             }
 
             switch ( c ){
@@ -83,47 +85,54 @@ public class Main {
         System.out.println("You've encountered a " + enemy.getName());
         enemy.display();
 
-        String menu = "1. Fight\n2. Run Away";
-        int num_of_options = 2;
-        // Hero has a med kit give them option of using it
-        if (hero.hasMedKit()) {
-            menu += "\n3. Med Kit";
-            num_of_options++;
-        }
+        while( hero.getHP() != 0 && enemy.getHP() != 0) {
+            String menu = "1. Fight\n2. Run Away";
+            int num_of_options = 2;
+            // Hero has a med kit give them option of using it
+            if (hero.hasMedKit()) {
+                menu += "\n3. Med Kit";
+                num_of_options++;
+            }
 
-        System.out.println(menu);
-        int choice = CheckInput.getIntRange(1, num_of_options);
-        switch ( choice ){
-            case 1: fight(hero, enemy);
-                    if( enemy.getHP() == 0){
+            System.out.println(menu);
+            int choice = CheckInput.getIntRange(1, num_of_options);
+            switch (choice) {
+                case 1:
+                    fight(hero, enemy);
+                    if (enemy.getHP() == 0) {
                         map.removeCharAtLoc(hero.getLocation());
                     }
-            break;
-            case 2:
-                Random random = new Random();
-                Point old_location = hero.getLocation();
-                while(old_location.equals(hero.getLocation())) {
-                    final int BOUND = 4;
-                    int walk_direction = random.nextInt(BOUND);
+                    break;
+                case 2:
+                    Random random = new Random();
+                    Point old_location = hero.getLocation();
+                    while (old_location.equals(hero.getLocation())) {
+                        final int BOUND = 4;
+                        int walk_direction = random.nextInt(BOUND);
 
-                    switch ( walk_direction ){
-                        case 0: hero.goNorth();
-                        break;
-                        case 1: hero.goSouth();
-                        break;
-                        case 2: hero.goWest();
-                        break;
-                        case 3: hero.goEast();
-                        break;
+                        switch (walk_direction) {
+                            case 0:
+                                hero.goNorth();
+                                break;
+                            case 1:
+                                hero.goSouth();
+                                break;
+                            case 2:
+                                hero.goWest();
+                                break;
+                            case 3:
+                                hero.goEast();
+                                break;
+                        }
                     }
-                }
-                break;
-            case 3:
-                final int HEAL_AMOUNT = 25;
-                hero.heal(HEAL_AMOUNT);
-                hero.removeItem("Med Kit");
-                enemy.attack(hero);
-            break;
+                    return true;
+                case 3:
+                    final int HEAL_AMOUNT = 25;
+                    hero.heal(HEAL_AMOUNT);
+                    hero.removeItem("Med Kit");
+                    enemy.attack(hero);
+                    break;
+            }
         }
         return hero.getHP() != 0;
     }
