@@ -4,75 +4,30 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println("What is your name? ");
+        String name = CheckInput.getString();
         Map map = new Map();
-        ItemGenerator itemGenerator = new ItemGenerator();
-        EnemyGenerator enemyGenerator = new EnemyGenerator( itemGenerator );
-        Hero hero = new Hero("Luke", map);
-        Enemy e = enemyGenerator.generateEnemy(hero.getLevel());
-        hero.pickUpItem(new Item("Med Kit"));
-        enemyRoom(hero, map, enemyGenerator);
-       /*
-        boolean keep_playing = true;
-
-        while ( keep_playing ) {
+        Hero hero = new Hero(name, map);
+        boolean game_over = false;
+        while(!game_over){
             hero.display();
             hero.displayItems();
             map.displayMap(hero.getLocation());
-            String menu = "1. Go North\n2. Go South\n3. Go East\n4. Go West\n5. Quit";
-            System.out.println(menu);
+            System.out.println("1. Go North\n2. Go South\n3. Go East\n4. Go West\n5. Quit");
             int choice = CheckInput.getIntRange(1, 5);
-            char c = 'n';
-            switch (choice) {
-                case 1:
-                    c = hero.goNorth();
-                    break;
-                case 2:
-                    c = hero.goSouth();
-                    break;
-                case 3:
-                    c = hero.goEast();
-                    break;
-                case 4:
-                    c = hero.goWest();
-                    break;
-                case 5:
-                    System.out.println("Game Over");
-                    return;
-            }
 
-            switch (c) {
-                case 'e':
-                    keep_playing = enemyRoom(hero, map, enemyGenerator);
-                    break;
-                case 'i':
-                    itemRoom(hero, map, itemGenerator);
-                    break;
-                case 'f':
-                    boolean open_door = false;
-                    if (hero.hasKey()) {
-                        open_door = true;
-                    } else if (hero.hasHolocron()) {
-                        System.out.println("Would you like to use the force to attempt to unlock the finish room");
-                        if (CheckInput.getYesNo()) {
-                            hero.removeItem("Holocron");
-
-                            final double THRESH_HOLD = .5;
-                            double probability = Math.random();
-
-                            if (Double.compare(probability, THRESH_HOLD) > 1) {
-                                open_door = true;
-                            }
-                        }
-                    }
-
-                    if (open_door) {
-                        hero.increaseLevel();
-                        map.loadMap(++mapNum);
-                    }
-                    break;
+            switch ( choice ){
+                case 1: hero.goNorth();
+                break;
+                case 2: hero.goSouth();
+                break;
+                case 3: hero.goEast();
+                break;
+                case 4: hero.goWest();
+                break;
+                case 5: return;
             }
         }
-        */
     }
 
     /**
@@ -126,6 +81,7 @@ public class Main {
                 final int HEAL_AMOUNT = 25;
                 hero.heal(HEAL_AMOUNT);
                 hero.removeItem("Med Kit");
+                enemy.attack(hero);
             break;
         }
         return hero.getHP() != 0;
