@@ -192,9 +192,10 @@ public class Main {
     }
 
     /**
-     * @param hero
-     * @param map
-     * @param itemGenerator
+     * Item room gives the hero a random item if they have available inventory
+     * @param hero the current hero of the game
+     * @param map the current map of the game
+     * @param itemGenerator generates a random item
      */
     public static void itemRoom(Hero hero, Map map, ItemGenerator itemGenerator) {
         Item item = itemGenerator.generateItem();
@@ -211,6 +212,7 @@ public class Main {
                 int index = CheckInput.getIntRange(1, 5);
                 hero.removeItem(index - 1);
                 hero.pickUpItem(item);
+                map.removeCharAtLoc(hero.getLocation());
             }
         }
     }
