@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -50,10 +51,18 @@ public class EnemyGenerator {
     public static void main(String[] args) {
         ItemGenerator itemGenerator = new ItemGenerator();
         EnemyGenerator enemyGenerator = new EnemyGenerator(itemGenerator);
-        for (int i = 0; i < 10; ++i) {
-            Enemy e = enemyGenerator.generateEnemy(10);
-            e.display();
+        Map map = new Map();
+        Hero hero = new Hero("Luke", map);
+        Enemy e = enemyGenerator.generateEnemy(1);
+        while(!e.getName().equals("Sith Lord")){
+            e = enemyGenerator.generateEnemy(1);
         }
+
+        while(hero.getHP() != 0){
+            e.attack(hero);
+
+        }
+
     }
 
     /**
@@ -67,6 +76,10 @@ public class EnemyGenerator {
         int randomIndex = generator.nextInt(enemyList.size());
         Enemy e = enemyList.get(randomIndex);
         Item item = itemGenerator.generateItem();
-        return new Enemy(e.getName(), level, level * e.getMaxHP(), item);
+        if(!ForceEnemy.class.isInstance(e)) {
+            return new Enemy(e.getName(), level, level * e.getMaxHP(), item);
+        } else {
+            return new ForceEnemy(e.getName(), level, level * e.getMaxHP(), item);
+        }
     }
 }
