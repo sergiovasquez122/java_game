@@ -54,6 +54,8 @@ public class Main {
                         System.out.println(" Would you like to use the force to try to open the door?");
 
                         if (CheckInput.getYesNo()) {
+                            hero.removeItem("Holocron");
+
                             final int BOUND = 10;
                             final int THRESHOLD = BOUND / 2;
                             move_onto_next_level = new Random().nextInt(BOUND + 1) > THRESHOLD;
