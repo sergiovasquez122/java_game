@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * @author Sergio Vasquez
  * Force Enemy Class - Representation of a single Force Enemy
@@ -23,12 +25,12 @@ public class ForceEnemy extends Enemy implements Force {
         double prob = Math.random();
         final double THRESHOLD = 0.5;
         /* return different damage amount based on if probability reached certain threshold */
+        final int LOW_DAMAGE = 3;
+        final int MEDIUM_DAMAGE = 5;
         if(Double.compare(prob, THRESHOLD) < 0){
-            return 3;
-        } else if(Double.compare(prob, THRESHOLD) > 1){
-            return 12;
+            return LOW_DAMAGE * getLevel();
         } else {
-            return 5;
+            return MEDIUM_DAMAGE * getLevel();
         }
     }
     /**
@@ -36,7 +38,8 @@ public class ForceEnemy extends Enemy implements Force {
      * @return the attack power of the force choke */
     @Override
     public int forceChoke() {
-        return 7;
+        final int MULTIPLIER = 2;
+        return getLevel() * MULTIPLIER;
     }
     /**
      * Perform a force slam
@@ -46,12 +49,15 @@ public class ForceEnemy extends Enemy implements Force {
     public int forceSlam() {
         int damage = (int) (Math.random() * getLevel()) + 1;
         double prob = Math.random();
-        final double THRESHOLD = 0.5;
-        /* return different damage amount based on if probability reached certain threshold */
+        final double THRESHOLD = 0.75;
+        /* return different damage amount based on if probability reached certain threshold
+        * force slam is a high-risk high reward attack  */
         if (Double.compare(prob, THRESHOLD) < 0) {
-            return 1;
+            final int LOW_DAMAGE = 1;
+            return LOW_DAMAGE;
         } else {
-            return damage * 3;
+            final int MULTIPLIER = 2;
+            return damage * MULTIPLIER;
         }
     }
     /**
@@ -60,7 +66,51 @@ public class ForceEnemy extends Enemy implements Force {
      */
     @Override
     public void attack(Entity e){
-        /* Apply the damage of a regular enemy */
-        super.attack(e);
+        // force enemy has a 1/4 chance in using all different types of attacks
+        final int BOUND = 4;
+        Random random = new Random();
+        int choice = random.nextInt(BOUND);
+
+        // Using the force will require we retrieve the necessary
+        // content for print to the user
+        boolean using_force = choice > 0;
+        String force_option = "";
+        int damage_amount = 0;
+        // 0 : regular attack
+        // 1 : force push
+        // 2 : force choke
+        // 3 : force slam
+        switch(choice){
+            case 0:
+                    // Enemy normal attack already prints necessary information
+                    super.attack(e);
+                    break;
+            case 1:
+                    force_option = "Force Push";
+                    damage_amount = forcePush();
+                    break;
+            case 2:
+                    force_option = "Force Choke";
+                    damage_amount = forceChoke();
+                    break;
+            case 3:
+                    force_option = "Force Slam";
+                    damage_amount = forceSlam();
+                    break;
+        }
+
+        if(using_force){
+            // Example : Sith Apprentice hits Luke with a Force Slam for 5 damage.
+            System.out.println(getName() + " hits " + e.getName() + " with a " + force_option + " for " + damage_amount + " damage.");
+        }
+    }
+
+    public static void main(String[] args) {
+        Map map = new Map();
+        Hero hero = new Hero("Luke", map);
+        ForceEnemy forceEnemy = new ForceEnemy("Sith Apprentice", 1, hero.getLevel() * 1, new Item("Med Kit"));
+        for( int i = 0; i < 10; ++i){
+            forceEnemy.attack(hero);
+        }
     }
 }
