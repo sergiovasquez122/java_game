@@ -30,10 +30,30 @@ public class Hero extends Entity implements Force{
      * @param e the entity to be attacked
      */
     public void attack(Entity e){
-        final int CONSTANT_DAMAGE = 3;
-        int attackPower = (int) (Math.random() * getLevel()) + CONSTANT_DAMAGE;
-        System.out.println(getName() + " attacks " + e.getName() + " for " + attackPower + " damage.");
-        e.takeDamage(attackPower);
+        final int BLASTER_DAMAGE = 3;
+        int attack_damage = BLASTER_DAMAGE + getLevel();
+        String current_attack = "Blaster";
+        if(hasHolocron()){
+            System.out.println("1. Use Blaster\n2. Use Force");
+            int choice = CheckInput.getIntRange(1, 2);
+            if (choice == 2){
+                removeItem("Holocron");
+                System.out.println(Force.FORCE_MENU);
+                int force_choice = CheckInput.getIntRange(1, 3);
+                if(force_choice == 1){
+                    attack_damage = forcePush();
+                    current_attack = "Force Push";
+                } else if(force_choice == 2){
+                    attack_damage = forceChoke();
+                    current_attack = "Force Choke";
+                } else {
+                    attack_damage = forceSlam();
+                    current_attack = "Force Slam";
+                }
+            }
+        }
+    System.out.println(getName() + " hits " + e.getName() + " with " + current_attack + " for " + attack_damage + " damage.");
+    e.takeDamage(attack_damage);
     }
 
     /**
@@ -241,13 +261,14 @@ public class Hero extends Entity implements Force{
     public int forcePush() {
         double prob = Math.random();
         final double THRESHOLD = 0.5;
-        /* return different damage amount based on if probability reached certain threshold */
+        /* Force Choke is medium-risk medium-reward attack
+         * deal medium damage if doesn't pass threshold of success */
         if(Double.compare(prob, THRESHOLD) < 0){
-            return 3;
-        } else if(Double.compare(prob, THRESHOLD) > 1){
-            return 12;
+            final int MEDIUM_DAMAGE = 3;
+            return MEDIUM_DAMAGE * getLevel();
         } else {
-            return 5;
+            final int HIGH_DAMAGE = 5;
+            return HIGH_DAMAGE * getLevel();
         }
     }
     /**
@@ -255,7 +276,8 @@ public class Hero extends Entity implements Force{
      * @return the attack power of the force choke */
     @Override
     public int forceChoke() {
-        return 7;
+        final int MULTIPLER = 2;
+        return MULTIPLER * getLevel();
     }
     /**
      * Perform a force slam
@@ -266,49 +288,24 @@ public class Hero extends Entity implements Force{
         int damage = (int) (Math.random() * getLevel()) + 1;
         double prob = Math.random();
         final double THRESHOLD = 0.5;
-        /* return different damage amount based on if probability reached certain threshold */
+        /* Force Slam is high-risk high-reward attack
+         * deal minimal damage if doesn't pass threshold of success */
         if (Double.compare(prob, THRESHOLD) < 0) {
-            return 1;
+            final int LOW_DAMAGE = 1;
+            return LOW_DAMAGE * getLevel();
         } else {
-            return damage * 3;
+            return damage * getLevel();
         }
     }
 
     public static void main(String[] args) {
         Map map = new Map();
-        Hero hero = new Hero("Luke",map);
-        for( int i = 0; i < 5; ++i){
-            for( int j = 0; j < 5; ++j){
-                map.reveal(new Point(i, j));
-                map.removeCharAtLoc(new Point(i, j));
-            }
-        }
-        map.displayMap(hero.getLocation());
-        while(true){
-            hero.display();
-            hero.displayItems();
-            map.displayMap(hero.getLocation());
-            String menu = "1. Go North\n2. Go South\n3. Go East\n4. Go West\n5. Quit";
-            System.out.println(menu);
-            int choice = CheckInput.getIntRange(1, 5);
-            char c = 'n';
-            switch (choice) {
-                case 1:
-                    c = hero.goNorth();
-                    break;
-                case 2:
-                    c = hero.goSouth();
-                    break;
-                case 3:
-                    c = hero.goEast();
-                    break;
-                case 4:
-                    c = hero.goWest();
-                    break;
-                case 5:
-                    System.out.println("Game Over");
-                    return;
-            }
-        }
+        ItemGenerator itemGenerator = new ItemGenerator();
+        EnemyGenerator enemyGenerator = new EnemyGenerator(itemGenerator);
+        Hero hero = new Hero("Luke", map);
+        hero.pickUpItem(new Item("Holocron"));
+        Enemy e = enemyGenerator.generateEnemy(hero.getLevel());
+        hero.attack(e);
+        hero.displayItems();
     }
 }
