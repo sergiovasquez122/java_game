@@ -6,13 +6,18 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("What is your name? ");
         String name = CheckInput.getString();
+
         Map map = new Map();
         Hero hero = new Hero(name, map);
         ItemGenerator itemgenerator = new ItemGenerator();
         EnemyGenerator enemyGenerator = new EnemyGenerator(itemgenerator);
         int mapNum = 1;
         boolean game_over = false;
+
+
         while (!game_over) {
+
+
             hero.display();
             hero.displayItems();
             map.displayMap(hero.getLocation());
