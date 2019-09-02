@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Random;
 
 public class Main {
 
@@ -8,7 +9,8 @@ public class Main {
         EnemyGenerator enemyGenerator = new EnemyGenerator( itemGenerator );
         Hero hero = new Hero("Luke", map);
         Enemy e = enemyGenerator.generateEnemy(hero.getLevel());
-        fight(hero, e);
+        hero.pickUpItem(new Item("Med Kit"));
+        enemyRoom(hero, map, enemyGenerator);
        /*
         boolean keep_playing = true;
 
@@ -74,10 +76,11 @@ public class Main {
     }
 
     /**
-     * @param hero
-     * @param map
-     * @param enemyGenerator
-     * @return true if the hero is still alive
+     * Method handles when Hero enters enemy room
+     * @param hero the current hero
+     * @param map the current map
+     * @param enemyGenerator generates a random enemy
+     * @return true if the hero is still alive false otherwise
      */
     public static boolean enemyRoom(Hero hero, Map map, EnemyGenerator enemyGenerator) {
         Enemy enemy = enemyGenerator.generateEnemy(hero.getLevel());
@@ -94,33 +97,36 @@ public class Main {
 
         System.out.println(menu);
         int choice = CheckInput.getIntRange(1, num_of_options);
-        while ( hero.getHP()!= 0 ) {
-            if (choice == 1) {
-                fight(hero, enemy);
-                if (enemy.getHP() == 0) {
-                    map.removeCharAtLoc(hero.getLocation());
-                    return true;
+        switch ( choice ){
+            case 1: fight(hero, enemy);
+                    if( enemy.getHP() == 0){
+                        map.removeCharAtLoc(hero.getLocation());
+                    }
+            break;
+            case 2:
+                Random random = new Random();
+                Point old_location = hero.getLocation();
+                while(old_location == hero.getLocation()) {
+                    final int BOUND = 4;
+                    int walk_direction = random.nextInt(BOUND);
+
+                    switch ( walk_direction ){
+                        case 1: hero.goNorth();
+                        break;
+                        case 2: hero.goSouth();
+                        break;
+                        case 3: hero.goWest();
+                        break;
+                        case 4: hero.goEast();
+                        break;
+                    }
                 }
-            } else if (choice == 2) {
-                // Run away to an adjacent cell
-                // where the cells are encodes as
-                // 0 = north, 1 = south, 2 = west, 3 = east
-                final int WALK_CHOICES = 4;
-                int random_walk = (int) (Math.random() * WALK_CHOICES);
-                if (random_walk == 0) {
-                    hero.goNorth();
-                } else if (random_walk == 1) {
-                    hero.goSouth();
-                } else if (random_walk == 2) {
-                    hero.goWest();
-                } else {
-                    hero.goEast();
-                }
-                return false;
-            } else {
-                hero.heal(25);
+                break;
+            case 3:
+                final int HEAL_AMOUNT = 25;
+                hero.heal(HEAL_AMOUNT);
                 hero.removeItem("Med Kit");
-            }
+            break;
         }
         return hero.getHP() != 0;
     }
