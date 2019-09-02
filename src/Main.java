@@ -3,23 +3,12 @@ import java.awt.*;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("What is your name?");
-        String name = CheckInput.getString();
-
         Map map = new Map();
-        int mapNum = 1;
         ItemGenerator itemGenerator = new ItemGenerator();
-        EnemyGenerator enemyGenerator = new EnemyGenerator(itemGenerator);
-
-        Hero hero = new Hero(name, map);
-        hero.pickUpItem(new Item("Holocron"));
-
-        for(int i = 0;i < 5; ++i){
-            for(int j = 0; j< 5; ++j){
-                map.reveal(new Point(i, j));
-            }
-        }
-
+        EnemyGenerator enemyGenerator = new EnemyGenerator( itemGenerator );
+        Hero hero = new Hero("Luke", map);
+        Enemy e = enemyGenerator.generateEnemy(hero.getLevel());
+        fight(hero, e);
        /*
         boolean keep_playing = true;
 
@@ -82,10 +71,6 @@ public class Main {
             }
         }
         */
-       while( hero.getHP() != 0){
-            enemyRoom(hero, map, enemyGenerator);
-            hero.displayItems();
-       }
     }
 
     /**
@@ -140,52 +125,21 @@ public class Main {
         return hero.getHP() != 0;
     }
 
+    /**
+     * Does a single trial of a fight between the hero and the enemy
+     * @param hero the current hero
+     * @param e the current enemy
+     * @return true if the hero is still alive, false otherwise
+     */
     public static boolean fight(Hero hero, Enemy e) {
-        if (hero.hasHolocron()) {
-            System.out.println("1. Use Blaster\n2. Use Force");
-            int choice = CheckInput.getIntRange(1, 2);
-            // If the choice is 2 then decide what force power to use
-            // else use the standard blaster attack
-            if (choice == 2) {
-                System.out.println(Force.FORCE_MENU);
-                int force_power_chosen = CheckInput.getIntRange(1, 3);
-                int damage_amount;
-                String power_chosen;
-                if (force_power_chosen == 1) {
-                    damage_amount = hero.forcePush();
-                    power_chosen = "Force Push";
-                } else if (force_power_chosen == 2) {
-                    damage_amount = hero.forceChoke();
-                    power_chosen = "Force Choke";
-                } else {
-                    damage_amount = hero.forceSlam();
-                    power_chosen = "Force Slam";
-                }
-                System.out.println(hero.getName() + " hits  " + e.getName() + " with " + power_chosen + " for " + damage_amount + " damage.");
-                e.takeDamage(damage_amount);
-                hero.removeItem("Holocron");
-            }
-        } else {
-            hero.attack(e);
-        }
-
-        if (e.getHP() != 0) {
-            e.attack(hero);
-        } else {
+        hero.attack(e);
+        if( e.getHP() != 0){
+            e.attack( hero );
+        } else{
+            System.out.println("You defeated the " + e.getName() + "!");
             Item item = e.getItem();
-            if (hero.pickUpItem(item)) {
+            if( hero.pickUpItem(item) ){
                 System.out.println("You received a " + item.getName() + " from the enemy.");
-            } else {
-                System.out.println("Inventory full would you like to drop an item?");
-                // User decided to drop an item
-                if (CheckInput.getYesNo()) {
-                    System.out.println("What item would you liked to drop?");
-                    hero.displayItems();
-
-                    int index = CheckInput.getIntRange(1, 5);
-                    hero.removeItem(index - 1);
-                    hero.pickUpItem(item);
-                }
             }
         }
         return hero.getHP() != 0;
