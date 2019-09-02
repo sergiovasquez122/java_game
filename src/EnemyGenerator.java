@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 /**
  * EnemyGenerator Class - Single representation of EnemyGenerator
+ *
  * @author Sergio Vasquez
  */
 public class EnemyGenerator {
@@ -29,13 +30,13 @@ public class EnemyGenerator {
         try {
             Scanner read = new Scanner(new File("EnemyList.txt"));
             do {
-                String tokens [] = read.nextLine().split(",");
+                String tokens[] = read.nextLine().split(",");
                 String enemyName = tokens[0];
                 final int DEFAULT_LEVEL = 1;
                 int enemyHealth = Integer.parseInt(tokens[1]);
                 String enemyType = tokens[2];
                 Item item = itemGenerator.generateItem();
-                if(enemyType.equals("n")){
+                if (enemyType.equals("n")) {
                     enemyList.add(new Enemy(enemyName, DEFAULT_LEVEL, enemyHealth, item));
                 } else {
                     enemyList.add(new ForceEnemy(enemyName, DEFAULT_LEVEL, enemyHealth, item));
@@ -43,6 +44,15 @@ public class EnemyGenerator {
             } while (read.hasNextLine());
         } catch (FileNotFoundException fnf) {
             System.out.println("File was not found");
+        }
+    }
+
+    public static void main(String[] args) {
+        ItemGenerator itemGenerator = new ItemGenerator();
+        EnemyGenerator enemyGenerator = new EnemyGenerator(itemGenerator);
+        for (int i = 0; i < 10; ++i) {
+            Enemy e = enemyGenerator.generateEnemy(10);
+            e.display();
         }
     }
 
@@ -58,14 +68,5 @@ public class EnemyGenerator {
         Enemy e = enemyList.get(randomIndex);
         Item item = itemGenerator.generateItem();
         return new Enemy(e.getName(), level, level * e.getMaxHP(), item);
-    }
-
-    public static void main(String[] args) {
-        ItemGenerator itemGenerator = new ItemGenerator();
-        EnemyGenerator enemyGenerator = new EnemyGenerator(itemGenerator);
-        for(int i = 0;i < 10; ++i){
-            Enemy e = enemyGenerator.generateEnemy(10);
-            e.display();
-        }
     }
 }

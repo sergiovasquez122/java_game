@@ -12,7 +12,7 @@ public class Main {
         EnemyGenerator enemyGenerator = new EnemyGenerator(itemgenerator);
         int mapNum = 1;
         boolean game_over = false;
-        while(!game_over){
+        while (!game_over) {
             hero.display();
             hero.displayItems();
             map.displayMap(hero.getLocation());
@@ -20,25 +20,25 @@ public class Main {
             int choice = CheckInput.getIntRange(1, 5);
 
             char c;
-            switch ( choice ){
+            switch (choice) {
                 case 1:
-                c = hero.goNorth();
-                break;
+                    c = hero.goNorth();
+                    break;
                 case 2:
-                c = hero.goSouth();
-                break;
+                    c = hero.goSouth();
+                    break;
                 case 3:
-                c = hero.goEast();
-                break;
+                    c = hero.goEast();
+                    break;
                 case 4:
-                c = hero.goWest();
-                break;
+                    c = hero.goWest();
+                    break;
                 default:
-                System.out.println("Game Over");
-                return;
+                    System.out.println("Game Over");
+                    return;
             }
 
-            switch ( c ){
+            switch (c) {
                 case 'e':
                     game_over = !enemyRoom(hero, map, enemyGenerator);
                     break;
@@ -47,22 +47,22 @@ public class Main {
                     break;
                 case 'f':
                     boolean move_onto_next_level = false;
-                    if(hero.hasKey()){
+                    if (hero.hasKey()) {
                         move_onto_next_level = true;
-                    } else if( hero.hasHolocron() ){
+                    } else if (hero.hasHolocron()) {
                         System.out.println(" Would you like to use the force to try to open the door?");
 
-                        if( CheckInput.getYesNo() ){
+                        if (CheckInput.getYesNo()) {
                             final int BOUND = 10;
-                            final int THRESHOLD = BOUND / 2 ;
+                            final int THRESHOLD = BOUND / 2;
                             move_onto_next_level = new Random().nextInt(BOUND + 1) > THRESHOLD;
-                            if(! move_onto_next_level ){
+                            if (!move_onto_next_level) {
                                 System.out.println("Attempt Failed!");
                             }
                         }
                     }
 
-                    if( move_onto_next_level ){
+                    if (move_onto_next_level) {
                         hero.increaseLevel();
                         map.loadMap(++mapNum);
                         System.out.println("Now on level " + mapNum);
@@ -75,8 +75,9 @@ public class Main {
 
     /**
      * Method handles when Hero enters enemy room
-     * @param hero the current hero
-     * @param map the current map
+     *
+     * @param hero           the current hero
+     * @param map            the current map
      * @param enemyGenerator generates a random enemy
      * @return true if the hero is still alive false otherwise
      */
@@ -85,7 +86,7 @@ public class Main {
         System.out.println("You've encountered a " + enemy.getName());
         enemy.display();
 
-        while( hero.getHP() != 0 && enemy.getHP() != 0) {
+        while (hero.getHP() != 0 && enemy.getHP() != 0) {
             String menu = "1. Fight\n2. Run Away";
             int num_of_options = 2;
             // Hero has a med kit give them option of using it
@@ -139,18 +140,19 @@ public class Main {
 
     /**
      * Does a single trial of a fight between the hero and the enemy
+     *
      * @param hero the current hero
-     * @param e the current enemy
+     * @param e    the current enemy
      * @return true if the hero is still alive, false otherwise
      */
     public static boolean fight(Hero hero, Enemy e) {
         hero.attack(e);
-        if( e.getHP() != 0){
-            e.attack( hero );
-        } else{
+        if (e.getHP() != 0) {
+            e.attack(hero);
+        } else {
             System.out.println("You defeated the " + e.getName() + "!");
             Item item = e.getItem();
-            if( hero.pickUpItem(item) ){
+            if (hero.pickUpItem(item)) {
                 System.out.println("You received a " + item.getName() + " from the enemy.");
             }
         }
@@ -159,8 +161,9 @@ public class Main {
 
     /**
      * Item room gives the hero a random item if they have available inventory
-     * @param hero the current hero of the game
-     * @param map the current map of the game
+     *
+     * @param hero          the current hero of the game
+     * @param map           the current map of the game
      * @param itemGenerator generates a random item
      */
     public static void itemRoom(Hero hero, Map map, ItemGenerator itemGenerator) {

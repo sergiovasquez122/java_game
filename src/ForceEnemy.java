@@ -6,7 +6,7 @@ import java.util.Random;
  */
 public class ForceEnemy extends Enemy implements Force {
     /**
-     * Creates an enemy with the specific attributes
+     * Creates a force enemy with the specific attributes
      *
      * @param name  The name of the enemy
      * @param level The level of the enemy
@@ -24,6 +24,7 @@ public class ForceEnemy extends Enemy implements Force {
     public int forcePush() {
         double prob = Math.random();
         final double THRESHOLD = 0.5;
+
         /* return different damage amount based on if probability reached certain threshold */
         final int LOW_DAMAGE = 3;
         final int MEDIUM_DAMAGE = 5;

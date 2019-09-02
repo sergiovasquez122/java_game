@@ -6,44 +6,51 @@ import java.util.Scanner;
 
 /**
  * ItemGenerator class - Representation of single ItemGenerator
+ *
  * @author Sergio Vasquez
  */
 public class ItemGenerator {
-    /** Contains all possible items to be generated */
-    private ArrayList<Item> itemList;
     /**
-     *  Constructor - fills the ItemGenerator with possible items
+     * Contains all possible items to be generated
      */
-    public ItemGenerator(){
+    private ArrayList<Item> itemList;
+
+    /**
+     * Constructor - fills the ItemGenerator with possible items
+     */
+    public ItemGenerator() {
         final String fileName = "ItemList.txt";
         try {
             itemList = new ArrayList<>();
 
             Scanner read = new Scanner(new File(fileName));
-            do{
+            do {
                 String itemName = read.nextLine();
                 itemList.add(new Item(itemName));
             }
-            while(read.hasNextLine());
-        } catch (FileNotFoundException fnf){
+            while (read.hasNextLine());
+        } catch (FileNotFoundException fnf) {
             System.out.println("File was not found");
         }
     }
+
+    public static void main(String[] args) {
+        ItemGenerator generator = new ItemGenerator();
+
+        for (int i = 0; i < 10; ++i) {
+            System.out.println(generator.generateItem().getName());
+        }
+    }
+
     /**
      * Retrieves a random item from the ItemGenerator
+     *
      * @return a random item from the ItemGenerator
      */
-    public Item generateItem(){
+    public Item generateItem() {
         Random generator = new Random();
         int randomIndex = generator.nextInt(itemList.size());
         Item i = itemList.get(randomIndex);
         return new Item(i.getName());
-    }
-    public static void main(String[] args) {
-        ItemGenerator generator = new ItemGenerator();
-
-        for(int i = 0;i < 10; ++i){
-            System.out.println(generator.generateItem().getName());
-        }
     }
 }

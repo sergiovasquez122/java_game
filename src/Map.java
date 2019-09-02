@@ -1,4 +1,4 @@
-import java.awt.Point;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -28,6 +28,55 @@ public class Map {
         loadMap(1);
     }
 
+    public static void main(String[] args) {
+        /* Test if the initial state of the first map is correct */
+        Map map = new Map();
+        map.displayMap(map.findStart());
+        System.out.println();
+        /* Reveal entire map and then display it */
+        final int MAP_SIZE = 5;
+        for (int i = 0; i < MAP_SIZE; ++i) {
+            for (int j = 0; j < MAP_SIZE; ++j) {
+                map.reveal(new Point(i, j));
+            }
+        }
+        map.displayMap(map.findStart());
+        System.out.println();
+
+        /* Test if the initial state of the second map is correct */
+        map.loadMap(2);
+        map.displayMap(map.findStart());
+        System.out.println();
+
+        /* Reveal entire map and then display it */
+        for (int i = 0; i < MAP_SIZE; ++i) {
+            for (int j = 0; j < MAP_SIZE; ++j) {
+                map.reveal(new Point(i, j));
+            }
+        }
+        map.displayMap(map.findStart());
+        System.out.println();
+
+        /* Test if the initial state of the third map is correct */
+        map.loadMap(3);
+        map.displayMap(map.findStart());
+        System.out.println();
+
+        /* Reveal entire map and then display it */
+        for (int i = 0; i < MAP_SIZE; ++i) {
+            for (int j = 0; j < MAP_SIZE; ++j) {
+                map.reveal(new Point(i, j));
+            }
+        }
+        map.displayMap(map.findStart());
+        System.out.println();
+
+        System.out.println("The character returned was " + map.getCharAtLoc(new Point(4, 4)));
+        map.removeCharAtLoc(new Point(4, 4));
+        map.displayMap(map.findStart());
+        System.out.println("The character returned was " + map.getCharAtLoc(new Point(4, 4)));
+    }
+
     /**
      * Loads the map with a given level
      *
@@ -44,8 +93,8 @@ public class Map {
             Scanner read = new Scanner(new File("Map" + currentMap + ".txt"));
             int rowIndex = 0;
             do {
-                String []  tokens = read.nextLine().split(" ");
-                for(int i = 0; i < map.length; ++i){
+                String[] tokens = read.nextLine().split(" ");
+                for (int i = 0; i < map.length; ++i) {
                     char c = tokens[i].charAt(0);
                     map[rowIndex][i] = c;
                     revealed[rowIndex][i] = false;
@@ -121,54 +170,5 @@ public class Map {
      */
     public void removeCharAtLoc(Point p) {
         map[p.x][p.y] = 'n';
-    }
-
-    public static void main(String[] args) {
-        /* Test if the initial state of the first map is correct */
-        Map map = new Map();
-        map.displayMap(map.findStart());
-        System.out.println();
-        /* Reveal entire map and then display it */
-        final int MAP_SIZE = 5;
-        for(int i = 0; i < MAP_SIZE; ++i){
-            for(int j = 0; j < MAP_SIZE; ++j){
-                map.reveal(new Point(i, j));
-            }
-        }
-        map.displayMap(map.findStart());
-        System.out.println();
-
-        /* Test if the initial state of the second map is correct */
-        map.loadMap(2);
-        map.displayMap(map.findStart());
-        System.out.println();
-
-        /* Reveal entire map and then display it */
-        for(int i = 0; i < MAP_SIZE; ++i){
-            for(int j = 0; j < MAP_SIZE; ++j){
-                map.reveal(new Point(i, j));
-            }
-        }
-        map.displayMap(map.findStart());
-        System.out.println();
-
-        /* Test if the initial state of the third map is correct */
-        map.loadMap(3);
-        map.displayMap(map.findStart());
-        System.out.println();
-
-        /* Reveal entire map and then display it */
-        for(int i = 0; i < MAP_SIZE; ++i){
-            for(int j = 0; j < MAP_SIZE; ++j){
-                map.reveal(new Point(i, j));
-            }
-        }
-        map.displayMap(map.findStart());
-        System.out.println();
-
-        System.out.println("The character returned was " + map.getCharAtLoc(new Point(4, 4)));
-        map.removeCharAtLoc(new Point(4,4));
-        map.displayMap(map.findStart());
-        System.out.println("The character returned was " + map.getCharAtLoc(new Point(4, 4)));
     }
 }
