@@ -103,6 +103,7 @@ public class ForceEnemy extends Enemy implements Force {
         if(using_force){
             // Example : Sith Apprentice hits Luke with a Force Slam for 5 damage.
             System.out.println(getName() + " hits " + e.getName() + " with a " + force_option + " for " + damage_amount + " damage.");
+            e.takeDamage( damage_amount );
         }
     }
 
