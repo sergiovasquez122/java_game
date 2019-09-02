@@ -49,6 +49,7 @@ public class Main {
                     boolean move_onto_next_level = false;
                     if (hero.hasKey()) {
                         move_onto_next_level = true;
+                        hero.removeItem("Key");
                     } else if (hero.hasHolocron()) {
                         System.out.println(" Would you like to use the force to try to open the door?");
 
