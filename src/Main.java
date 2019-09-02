@@ -68,6 +68,7 @@ public class Main {
                     break;
             }
         }
+        System.out.println("Game Over");
     }
 
     /**
@@ -101,18 +102,18 @@ public class Main {
             case 2:
                 Random random = new Random();
                 Point old_location = hero.getLocation();
-                while(old_location == hero.getLocation()) {
+                while(old_location.equals(hero.getLocation())) {
                     final int BOUND = 4;
                     int walk_direction = random.nextInt(BOUND);
 
                     switch ( walk_direction ){
-                        case 1: hero.goNorth();
+                        case 0: hero.goNorth();
                         break;
-                        case 2: hero.goSouth();
+                        case 1: hero.goSouth();
                         break;
-                        case 3: hero.goWest();
+                        case 2: hero.goWest();
                         break;
-                        case 4: hero.goEast();
+                        case 3: hero.goEast();
                         break;
                     }
                 }
