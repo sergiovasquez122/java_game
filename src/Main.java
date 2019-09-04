@@ -51,34 +51,46 @@ public class Main {
                     itemRoom(hero, map, itemgenerator);
                     break;
                 case 'f':
-                    boolean move_onto_next_level = false;
-                    if (hero.hasKey()) {
-                        move_onto_next_level = true;
-                        hero.removeItem("Key");
-                    } else if (hero.hasHolocron() && !hero.hasKey()) {
-                        System.out.println(" Would you like to use the force to try to open the door?");
-
-                        if (CheckInput.getYesNo()) {
-                            hero.removeItem("Holocron");
-
-                            final int BOUND = 10;
-                            final int THRESHOLD = BOUND / 2;
-                            move_onto_next_level = new Random().nextInt(BOUND + 1) > THRESHOLD;
-                            if (!move_onto_next_level) {
-                                System.out.println("Attempt Failed!");
-                            }
-                        }
-                    }
-
-                    if (move_onto_next_level) {
-                        hero.increaseLevel();
-                        map.loadMap(++mapNum);
-                        System.out.println("Now on level " + mapNum);
-                    }
+                    finishRoom(hero, map, ++mapNum);
                     break;
             }
         }
         System.out.println("Game Over");
+    }
+
+    /**
+     * Hero enters finishRoom, decides if hero moves to the next level or not
+     * @param hero the Hero of the game
+     * @param map the current map
+     * @param mapNum the new map location to be loaded
+     */
+    public static void finishRoom(Hero hero, Map map, int mapNum){
+
+        boolean move_onto_next_level = false;
+        if (hero.hasKey()) {
+            move_onto_next_level = true;
+            hero.removeItem("Key");
+        } else if (hero.hasHolocron() && !hero.hasKey()) {
+            System.out.println(" Would you like to use the force to try to open the door?");
+
+            if (CheckInput.getYesNo()) {
+                hero.removeItem("Holocron");
+
+                final int BOUND = 10;
+                final int THRESHOLD = BOUND / 2;
+                move_onto_next_level = new Random().nextInt(BOUND + 1) > THRESHOLD;
+                if (!move_onto_next_level) {
+                    System.out.println("Attempt Failed!");
+                }
+            }
+        }
+
+        if (move_onto_next_level) {
+            hero.increaseLevel();
+            map.loadMap(mapNum);
+            System.out.println("Now on level " + mapNum);
+        }
+
     }
 
     /**
@@ -113,27 +125,7 @@ public class Main {
                     }
                     break;
                 case 2:
-                    Random random = new Random();
-                    Point old_location = hero.getLocation();
-                    while (old_location.equals(hero.getLocation())) {
-                        final int BOUND = 4;
-                        int walk_direction = random.nextInt(BOUND);
-
-                        switch (walk_direction) {
-                            case 0:
-                                hero.goNorth();
-                                break;
-                            case 1:
-                                hero.goSouth();
-                                break;
-                            case 2:
-                                hero.goWest();
-                                break;
-                            case 3:
-                                hero.goEast();
-                                break;
-                        }
-                    }
+                    runAway(hero);
                     return true;
                 case 3:
                     final int HEAL_AMOUNT = 25;
@@ -144,6 +136,34 @@ public class Main {
             }
         }
         return hero.getHP() != 0;
+    }
+
+    /**
+     * hero moves a random direction on the map
+     * @param hero the hero of the game
+     */
+    public static void runAway(Hero hero){
+        Random random = new Random();
+        Point old_location = hero.getLocation();
+        while (old_location.equals(hero.getLocation())) {
+            final int BOUND = 4;
+            int walk_direction = random.nextInt(BOUND);
+
+            switch (walk_direction) {
+                case 0:
+                    hero.goNorth();
+                    break;
+                case 1:
+                    hero.goSouth();
+                    break;
+                case 2:
+                    hero.goWest();
+                    break;
+                case 3:
+                    hero.goEast();
+                    break;
+            }
+        }
     }
 
     /**
