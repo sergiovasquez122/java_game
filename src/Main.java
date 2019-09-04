@@ -53,7 +53,7 @@ public class Main {
                 case 'f':
                     // If the hero successfully goes on to the next map
                     // set the current map to it
-                    if(finishRoom(hero, map, mapNum + 1)){
+                    if (finishRoom(hero, map, mapNum + 1)) {
                         mapNum++;
                     }
                     break;
@@ -64,12 +64,13 @@ public class Main {
 
     /**
      * Hero enters finishRoom, decides if hero moves to the next level or not
-     * @param hero the Hero of the game
-     * @param map the current map
-     * @param mapNum the new map location to be loaded
      *
+     * @param hero   the Hero of the game
+     * @param map    the current map
+     * @param mapNum the new map location to be loaded
+     * @return true if the hero successfully cleared the map, false otherwise
      */
-    public static boolean finishRoom(Hero hero, Map map, int mapNum){
+    public static boolean finishRoom(Hero hero, Map map, int mapNum) {
 
         boolean move_onto_next_level = false;
         if (hero.hasKey()) {
@@ -77,7 +78,6 @@ public class Main {
             hero.removeItem("Key");
         } else if (hero.hasHolocron() && !hero.hasKey()) {
             System.out.println(" Would you like to use the force to try to open the door?");
-
             if (CheckInput.getYesNo()) {
                 hero.removeItem("Holocron");
 
@@ -127,6 +127,17 @@ public class Main {
                 case 1:
                     fight(hero, enemy);
                     if (enemy.getHP() == 0) {
+                        if(!hero.pickUpItem(enemy.getItem())) {
+                            System.out.println("Inventory full would you like to drop an item?");
+                            // User decided to drop an item
+                            if (CheckInput.getYesNo()) {
+                                System.out.println("What item would you liked to drop?");
+                                hero.displayItems();
+
+                                int index = CheckInput.getIntRange(1, 5);
+                                hero.removeItem(index - 1);
+                            }
+                        }
                         map.removeCharAtLoc(hero.getLocation());
                     }
                     break;
@@ -146,9 +157,10 @@ public class Main {
 
     /**
      * hero moves a random direction on the map
+     *
      * @param hero the hero of the game
      */
-    public static void runAway(Hero hero){
+    public static void runAway(Hero hero) {
         Random random = new Random();
         Point old_location = hero.getLocation();
         while (old_location.equals(hero.getLocation())) {
@@ -180,9 +192,15 @@ public class Main {
      * @return true if the hero is still alive, false otherwise
      */
     public static boolean fight(Hero hero, Enemy e) {
+
         hero.attack(e);
         if (e.getHP() != 0) {
-            e.attack(hero);
+            if (hero.hasArmor()) {
+                String armorName = hero.removeFirstArmorItem();
+                System.out.println(hero.getName() + " defended himself with " + armorName);
+            } else {
+                e.attack(hero);
+            }
         } else {
             System.out.println("You defeated the " + e.getName() + "!");
             Item item = e.getItem();
@@ -192,6 +210,7 @@ public class Main {
         }
         return hero.getHP() != 0;
     }
+
 
     /**
      * Item room gives the hero a random item if they have available inventory
@@ -219,4 +238,6 @@ public class Main {
             }
         }
     }
+
+
 }
