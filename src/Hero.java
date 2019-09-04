@@ -35,13 +35,9 @@ public class Hero extends Entity implements Force {
 
     public static void main(String[] args) {
         Map map = new Map();
-        ItemGenerator itemGenerator = new ItemGenerator();
-        EnemyGenerator enemyGenerator = new EnemyGenerator(itemGenerator);
         Hero hero = new Hero("Luke", map);
-        hero.pickUpItem(new Item("Holocron"));
-        Enemy e = enemyGenerator.generateEnemy(hero.getLevel());
-        hero.attack(e);
-        hero.displayItems();
+        hero.pickUpItem(new Item("Chestplate"));
+        System.out.println(hero.removeFirstArmorItem());
     }
 
     /**
@@ -316,6 +312,21 @@ public class Hero extends Entity implements Force {
     public int forceChoke() {
         final int MULTIPLER = 2;
         return MULTIPLER * getLevel();
+    }
+
+    /**
+     * Remove the first item in the hero inventory
+     * @name the name of the item removed
+     */
+    public String removeFirstArmorItem(){
+        for(int i = 0;i < items.size();++i){
+            Item item = items.get(i);
+            if(item.getName().equals("Chestplate") || item.getName().equals("Holocron") || item.getName().equals("Shield")){
+                items.remove(i);
+                return item.getName();
+            }
+        }
+        throw new IllegalArgumentException("No item in the list");
     }
 
     /**
