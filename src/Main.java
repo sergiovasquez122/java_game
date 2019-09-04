@@ -127,17 +127,6 @@ public class Main {
                 case 1:
                     fight(hero, enemy);
                     if (enemy.getHP() == 0) {
-                        if(!hero.pickUpItem(enemy.getItem())) {
-                            System.out.println("Inventory full would you like to drop an item?");
-                            // User decided to drop an item
-                            if (CheckInput.getYesNo()) {
-                                System.out.println("What item would you liked to drop?");
-                                hero.displayItems();
-
-                                int index = CheckInput.getIntRange(1, 5);
-                                hero.removeItem(index - 1);
-                            }
-                        }
                         map.removeCharAtLoc(hero.getLocation());
                     }
                     break;
@@ -148,7 +137,12 @@ public class Main {
                     final int HEAL_AMOUNT = 25;
                     hero.heal(HEAL_AMOUNT);
                     hero.removeItem("Med Kit");
-                    enemy.attack(hero);
+                    if (hero.hasArmor()) {
+                        String armorName = hero.removeFirstArmorItem();
+                        System.out.println(hero.getName() + " defended himself with " + armorName);
+                    } else {
+                        hero.attack(hero);
+                    }
                     break;
             }
         }
@@ -206,6 +200,17 @@ public class Main {
             Item item = e.getItem();
             if (hero.pickUpItem(item)) {
                 System.out.println("You received a " + item.getName() + " from the enemy.");
+            } else {
+                System.out.println("Inventory full would you like to drop an item?");
+                // User decided to drop an item
+                if (CheckInput.getYesNo()) {
+                    System.out.println("What item would you liked to drop?");
+                    hero.displayItems();
+
+                    int index = CheckInput.getIntRange(1, 5);
+                    hero.removeItem(index - 1);
+                    hero.pickUpItem(item);
+                }
             }
         }
         return hero.getHP() != 0;
