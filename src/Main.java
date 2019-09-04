@@ -51,7 +51,11 @@ public class Main {
                     itemRoom(hero, map, itemgenerator);
                     break;
                 case 'f':
-                    finishRoom(hero, map, ++mapNum);
+                    // If the hero successfully goes on to the next map
+                    // set the current map to it
+                    if(finishRoom(hero, map, mapNum + 1)){
+                        mapNum++;
+                    }
                     break;
             }
         }
@@ -63,8 +67,9 @@ public class Main {
      * @param hero the Hero of the game
      * @param map the current map
      * @param mapNum the new map location to be loaded
+     *
      */
-    public static void finishRoom(Hero hero, Map map, int mapNum){
+    public static boolean finishRoom(Hero hero, Map map, int mapNum){
 
         boolean move_onto_next_level = false;
         if (hero.hasKey()) {
@@ -89,8 +94,9 @@ public class Main {
             hero.increaseLevel();
             map.loadMap(mapNum);
             System.out.println("Now on level " + mapNum);
+            return true;
         }
-
+        return false;
     }
 
     /**
