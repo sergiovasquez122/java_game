@@ -47,29 +47,29 @@ public class Hero extends Entity implements Force {
      */
     public void attack(Entity e) {
         final int BLASTER_DAMAGE = 3;
-        int attack_damage = BLASTER_DAMAGE + getLevel();
-        String current_attack = "Blaster";
+        int attackDamage = BLASTER_DAMAGE + getLevel();
+        String currentAttack = "Blaster";
         if (hasHolocron()) {
             System.out.println("1. Use Blaster\n2. Use Force");
             int choice = CheckInput.getIntRange(1, 2);
             if (choice == 2) {
                 removeItem("Holocron");
                 System.out.println(Force.FORCE_MENU);
-                int force_choice = CheckInput.getIntRange(1, 3);
-                if (force_choice == 1) {
-                    attack_damage = forcePush();
-                    current_attack = "Force Push";
-                } else if (force_choice == 2) {
-                    attack_damage = forceChoke();
-                    current_attack = "Force Choke";
+                int forceChoice = CheckInput.getIntRange(1, 3);
+                if (forceChoice == 1) {
+                    attackDamage = forcePush();
+                    currentAttack = "Force Push";
+                } else if (forceChoice == 2) {
+                    attackDamage = forceChoke();
+                    currentAttack = "Force Choke";
                 } else {
-                    attack_damage = forceSlam();
-                    current_attack = "Force Slam";
+                    attackDamage = forceSlam();
+                    currentAttack = "Force Slam";
                 }
             }
         }
-        System.out.println(getName() + " hits " + e.getName() + " with " + current_attack + " for " + attack_damage + " damage.");
-        e.takeDamage(attack_damage);
+        System.out.println(getName() + " hits " + e.getName() + " with " + currentAttack + " for " + attackDamage + " damage.");
+        e.takeDamage(attackDamage);
     }
 
     /**

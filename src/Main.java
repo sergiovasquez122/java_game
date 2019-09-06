@@ -9,13 +9,13 @@ public class Main {
 
         Map map = new Map();
         Hero hero = new Hero(name, map);
-        ItemGenerator itemgenerator = new ItemGenerator();
-        EnemyGenerator enemyGenerator = new EnemyGenerator(itemgenerator);
+        ItemGenerator itemGenerator = new ItemGenerator();
+        EnemyGenerator enemyGenerator = new EnemyGenerator(itemGenerator);
         int mapNum = 1;
-        boolean game_over = false;
+        boolean gameOver = false;
 
 
-        while (!game_over) {
+        while (!gameOver) {
 
 
             hero.display();
@@ -45,10 +45,10 @@ public class Main {
 
             switch (c) {
                 case 'e':
-                    game_over = !enemyRoom(hero, map, enemyGenerator);
+                    gameOver = !enemyRoom(hero, map, enemyGenerator);
                     break;
                 case 'i':
-                    itemRoom(hero, map, itemgenerator);
+                    itemRoom(hero, map, itemGenerator);
                     break;
                 case 'f':
                     // If the hero successfully goes on to the next map
@@ -72,9 +72,9 @@ public class Main {
      */
     public static boolean finishRoom(Hero hero, Map map, int mapNum) {
 
-        boolean move_onto_next_level = false;
+        boolean moveOntoNextLevel = false;
         if (hero.hasKey()) {
-            move_onto_next_level = true;
+            moveOntoNextLevel = true;
             hero.removeItem("Key");
         } else if (hero.hasHolocron() && !hero.hasKey()) {
             System.out.println(" Would you like to use the force to try to open the door?");
@@ -83,14 +83,14 @@ public class Main {
 
                 final int BOUND = 10;
                 final int THRESHOLD = BOUND / 2;
-                move_onto_next_level = new Random().nextInt(BOUND + 1) > THRESHOLD;
-                if (!move_onto_next_level) {
+                moveOntoNextLevel = new Random().nextInt(BOUND + 1) > THRESHOLD;
+                if (!moveOntoNextLevel) {
                     System.out.println("Attempt Failed!");
                 }
             }
         }
 
-        if (move_onto_next_level) {
+        if (moveOntoNextLevel) {
             hero.increaseLevel();
             map.loadMap(mapNum);
             System.out.println("Now on level " + mapNum);
@@ -114,15 +114,15 @@ public class Main {
 
         while (hero.getHP() != 0 && enemy.getHP() != 0) {
             String menu = "1. Fight\n2. Run Away";
-            int num_of_options = 2;
+            int numOfOptions = 2;
             // Hero has a med kit give them option of using it
             if (hero.hasMedKit()) {
                 menu += "\n3. Med Kit";
-                num_of_options++;
+                numOfOptions++;
             }
 
             System.out.println(menu);
-            int choice = CheckInput.getIntRange(1, num_of_options);
+            int choice = CheckInput.getIntRange(1, numOfOptions);
             switch (choice) {
                 case 1:
                     fight(hero, enemy);
@@ -156,12 +156,12 @@ public class Main {
      */
     public static void runAway(Hero hero) {
         Random random = new Random();
-        Point old_location = hero.getLocation();
-        while (old_location.equals(hero.getLocation())) {
+        Point oldLocation = hero.getLocation();
+        while (oldLocation.equals(hero.getLocation())) {
             final int BOUND = 4;
-            int walk_direction = random.nextInt(BOUND);
+            int walkDirection = random.nextInt(BOUND);
 
-            switch (walk_direction) {
+            switch (walkDirection) {
                 case 0:
                     hero.goNorth();
                     break;

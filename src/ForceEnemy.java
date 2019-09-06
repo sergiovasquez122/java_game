@@ -75,8 +75,8 @@ public class ForceEnemy extends Enemy implements Force {
         // Using the force will require we retrieve the necessary
         // content for print to the user
         boolean using_force = choice > 0;
-        String force_option = "";
-        int damage_amount = 0;
+        String forceOption = "";
+        int damageAmount = 0;
         // 0 : regular attack
         // 1 : force push
         // 2 : force choke
@@ -87,23 +87,23 @@ public class ForceEnemy extends Enemy implements Force {
                     super.attack(e);
                     break;
             case 1:
-                    force_option = "Force Push";
-                    damage_amount = forcePush();
+                    forceOption = "Force Push";
+                    damageAmount = forcePush();
                     break;
             case 2:
-                    force_option = "Force Choke";
-                    damage_amount = forceChoke();
+                    forceOption = "Force Choke";
+                    damageAmount = forceChoke();
                     break;
             case 3:
-                    force_option = "Force Slam";
-                    damage_amount = forceSlam();
+                    forceOption = "Force Slam";
+                    damageAmount = forceSlam();
                     break;
         }
 
         if(using_force){
             // Example : Sith Apprentice hits Luke with a Force Slam for 5 damage.
-            System.out.println(getName() + " hits " + e.getName() + " with a " + force_option + " for " + damage_amount + " damage.");
-            e.takeDamage( damage_amount );
+            System.out.println(getName() + " hits " + e.getName() + " with a " + forceOption + " for " + damageAmount + " damage.");
+            e.takeDamage( damageAmount );
         }
     }
 
