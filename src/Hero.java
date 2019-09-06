@@ -321,7 +321,7 @@ public class Hero extends Entity implements Force {
     public String removeFirstArmorItem(){
         for(int i = 0;i < items.size();++i){
             Item item = items.get(i);
-            if(item.getName().equals("Chestplate") || item.getName().equals("Chestplate") || item.getName().equals("Shield")){
+            if(item.getName().equals("Chestplate") || item.getName().equals("Helmet") || item.getName().equals("Shield")){
                 items.remove(i);
                 return item.getName();
             }
