@@ -51,7 +51,7 @@ public abstract class Entity {
         return maxHp;
     }
     /**
-     * Increase the level of the entity by one and increase their maxHp
+     * Increase the level of the entity by one and increase their maxHp by 10
      */
     public void increaseLevel() {
         final int HEALTH_INCREASE = 10;

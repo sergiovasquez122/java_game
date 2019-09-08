@@ -5,11 +5,8 @@ import java.util.Random;
  * @author Sergio Vasquez
  */
 public class Enemy extends Entity {
-    /**
-     * The item that the enemy is holding
-     */
+    /** The item that the enemy is holding */
     private Item item;
-
     /**
      * Creates an enemy with the specific attributes
      * @param name  The name of the enemy
@@ -21,12 +18,10 @@ public class Enemy extends Entity {
         super(name, level, maxHp);
         this.item = item;
     }
-
     public static void main(String[] args) {
         Enemy enemy = new Enemy("Stormtrooper", 2, 10, new Item("Holocron"));
         enemy.display();
     }
-
     /**
      * Attack an entity
      * @param e the entity to be attacked
@@ -38,11 +33,9 @@ public class Enemy extends Entity {
         int randomDamage = new Random().nextInt(e.getLevel() + 1);
         int attackPower = randomDamage + CONSTANT_DAMAGE;
 
-
         System.out.println(getName() + " attacks " + e.getName() + " for " + attackPower + " damage.");
         e.takeDamage(attackPower);
     }
-
     /**
      * Retrieve the enemy item
      * @return the enemy item

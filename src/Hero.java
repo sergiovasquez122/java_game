@@ -53,15 +53,22 @@ public class Hero extends Entity implements Force {
      * @param e the entity to be attacked
      */
     public void attack(Entity e) {
+        // By default hero will use the blaster
         final int BLASTER_DAMAGE = 3;
         int attackDamage = BLASTER_DAMAGE + getLevel();
         String currentAttack = "Blaster";
+
+        // If hero has a Holocron give them the option to use the force
         if ( hasHolocron() ) {
             System.out.println("1. Use Blaster\n2. Use Force");
             int choice = CheckInput.getIntRange(1, 2);
+
+            // The hero has decided to use the force, consume their Holocron and give option for force attack
             if ( choice == 2 ) {
                 removeItem("Holocron");
                 System.out.println(Force.FORCE_MENU);
+
+                // Three types of force attack available
                 int forceChoice = CheckInput.getIntRange(1, 3);
                 if ( forceChoice == 1 ) {
                     attackDamage = forcePush();
@@ -75,6 +82,7 @@ public class Hero extends Entity implements Force {
                 }
             }
         }
+        // Display information and hurt the entity
         System.out.println(getName() + " hits " + e.getName() + " with " + currentAttack + " for " + attackDamage + " damage.");
         e.takeDamage(attackDamage);
     }
@@ -106,6 +114,7 @@ public class Hero extends Entity implements Force {
      * @return true if an item was picked up
      */
     public boolean pickUpItem(Item i) {
+        // Five is the max amount of items that the hero can carry
         if ( items.size() == 5 ) {
             return false;
         }
@@ -121,8 +130,7 @@ public class Hero extends Entity implements Force {
             Item item = items.get(i);
             if ( name.equals(item.getName()) ) {
                 items.remove(i);
-                // Exit method so that only one item is removed if
-                // there are duplicates
+                // Exit method so that only one item is removed if there are duplicates
                 return;
             }
         }

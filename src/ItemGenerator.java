@@ -16,9 +16,10 @@ public class ItemGenerator {
      */
     public ItemGenerator() {
         final String fileName = "ItemList.txt";
-        try {
-            itemList = new ArrayList<>();
+        itemList = new ArrayList<>();
 
+        // Read from file if file is found
+        try {
             Scanner read = new Scanner(new File(fileName));
             do {
                 String itemName = read.nextLine();

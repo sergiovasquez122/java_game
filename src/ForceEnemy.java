@@ -24,7 +24,7 @@ public class ForceEnemy extends Enemy implements Force {
         double prob = Math.random();
         final double THRESHOLD = 0.5;
 
-        /* return different damage amount based on if probability reached certain threshold */
+        // return different damage amount based on if probability reached certain threshold
         final int LOW_DAMAGE = 3;
         final int MEDIUM_DAMAGE = 5;
         if(Double.compare(prob, THRESHOLD) < 0){
@@ -35,7 +35,8 @@ public class ForceEnemy extends Enemy implements Force {
     }
     /**
      * Perform a force choke
-     * @return the attack power of the force choke */
+     * @return the attack power of the force choke
+     */
     @Override
     public int forceChoke() {
         final int MULTIPLIER = 2;
@@ -72,7 +73,7 @@ public class ForceEnemy extends Enemy implements Force {
         int choice = random.nextInt(BOUND);
 
         // Using the force will require we retrieve the necessary
-        // content for print to the user
+        // content to print to the user
         boolean using_force = choice > 0;
         String forceOption = "";
         int damageAmount = 0;

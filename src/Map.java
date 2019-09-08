@@ -137,7 +137,6 @@ public class Map {
                 String[] tokens = read.nextLine().split(" ");
                 for ( int i = 0; i < map.length; ++i ) {
                     char c = tokens[i].charAt(0);
-
                     // set the current row specific column index into
                     // specified character and reset revealed matrix
                     map[rowIndex][i] = c;

@@ -10,12 +10,9 @@ import java.util.Scanner;
  * @author Sergio Vasquez
  */
 public class EnemyGenerator {
-    /**
-     * The list of all possible enemies
-     */
+    /** The list of all possible enemies */
     private ArrayList<Enemy> enemyList;
     private ItemGenerator itemGenerator;
-
     /**
      * Constructor - Constructs a EnemyGenerator with a specified ItemGenerator
      * @param itemGenerator generates the possible types of items the enemy can have
@@ -31,16 +28,18 @@ public class EnemyGenerator {
                 // Enemy data is in the form [name, health_multiplier, force_user]
                 String tokens[] = read.nextLine().split(",");
 
+                // Get the attributes of the current enemy
                 String enemyName = tokens[0];
                 final int DEFAULT_LEVEL = 1;
-                int enemyHealth = Integer.parseInt(tokens[1]);
+                int baseHealth = Integer.parseInt(tokens[1]);
                 String enemyType = tokens[2];
                 Item item = itemGenerator.generateItem();
 
+                // n is a normal enemy, f is a force enemy
                 if ( enemyType.equals("n") ) {
-                    enemyList.add(new Enemy(enemyName, DEFAULT_LEVEL, enemyHealth, item));
+                    enemyList.add(new Enemy(enemyName, DEFAULT_LEVEL, baseHealth, item));
                 } else {
-                    enemyList.add(new ForceEnemy(enemyName, DEFAULT_LEVEL, enemyHealth, item));
+                    enemyList.add(new ForceEnemy(enemyName, DEFAULT_LEVEL, baseHealth, item));
                 }
             } while (read.hasNextLine());
         } catch (FileNotFoundException fnf) {
@@ -64,20 +63,19 @@ public class EnemyGenerator {
         }
 
     }
-
     /**
      * Generate a random enemy with specified level
      * @param level the level of the enemy
      * @return Generate a random enemy with specified level
      */
     public Enemy generateEnemy(int level) {
+        // Get a random enemy with equal likelihood and generate a random item
         Random generator = new Random();
         int randomIndex = generator.nextInt(enemyList.size());
-
         Enemy enemy = enemyList.get(randomIndex);
         Item item = itemGenerator.generateItem();
 
-        // Create different type of enemies
+        // Create different type of enemies and use supplied level as multiplier for the enemy hp
         if( !( enemy instanceof ForceEnemy ) ) {
             return new Enemy( enemy.getName(), level, level * enemy.getMaxHP(), item);
         } else {
