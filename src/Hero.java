@@ -44,17 +44,17 @@ public class Hero extends Entity implements Force {
         final int BLASTER_DAMAGE = 3;
         int attackDamage = BLASTER_DAMAGE + getLevel();
         String currentAttack = "Blaster";
-        if (hasHolocron()) {
+        if ( hasHolocron() ) {
             System.out.println("1. Use Blaster\n2. Use Force");
             int choice = CheckInput.getIntRange(1, 2);
-            if (choice == 2) {
+            if ( choice == 2 ) {
                 removeItem("Holocron");
                 System.out.println(Force.FORCE_MENU);
                 int forceChoice = CheckInput.getIntRange(1, 3);
-                if (forceChoice == 1) {
+                if ( forceChoice == 1 ) {
                     attackDamage = forcePush();
                     currentAttack = "Force Push";
-                } else if (forceChoice == 2) {
+                } else if ( forceChoice == 2 ) {
                     attackDamage = forceChoke();
                     currentAttack = "Force Choke";
                 } else {
@@ -77,7 +77,7 @@ public class Hero extends Entity implements Force {
      */
     public void displayItems() {
         System.out.println("Inventory:");
-        for (int i = 0; i < items.size(); ++i) {
+        for ( int i = 0; i < items.size(); ++i ) {
             System.out.println((i + 1) + ": " + items.get(i).getName());
         }
     }
@@ -94,7 +94,7 @@ public class Hero extends Entity implements Force {
      * @return true if an item was picked up
      */
     public boolean pickUpItem(Item i) {
-        if (items.size() == 5) {
+        if ( items.size() == 5 ) {
             return false;
         }
         items.add(i);
@@ -103,33 +103,30 @@ public class Hero extends Entity implements Force {
     /**
      * Remove a item with the given name
      * @param name the name of the item to be removed
-     * @return a item with the given name
      */
-    public Item removeItem(String name) {
-        for (int i = 0; i < items.size(); ++i) {
+    public void removeItem(String name) {
+        for ( int i = 0; i < items.size(); ++i ) {
             Item item = items.get(i);
-            if (name.equals(item.getName())) {
-                return items.remove(i);
+            if ( name.equals(item.getName()) ) {
+                items.remove(i);
             }
         }
-        throw new IllegalArgumentException("That item does not exist");
     }
     /**
      * Remove the item at the indicated index
      * @param index the index of the item to be removed
-     * @return the item at the specified index
      */
-    public Item removeItem(int index) {
-        return items.remove(index);
+    public void removeItem(int index) {
+        items.remove(index);
     }
     /**
      * Checks if the hero has a Med Kit
      * @return true if the hero has a Med Kit
      */
     public boolean hasMedKit() {
-        for (Item item : items) {
+        for ( Item item : items ) {
             String itemName = item.getName();
-            if (itemName.equals("Med Kit")) {
+            if ( itemName.equals("Med Kit") ) {
                 return true;
             }
         }
@@ -140,9 +137,9 @@ public class Hero extends Entity implements Force {
      * @return true if the hero has a key
      */
     public boolean hasKey() {
-        for (Item item : items) {
+        for ( Item item : items ) {
             String itemName = item.getName();
-            if (itemName.equals("Key")) {
+            if ( itemName.equals("Key") ) {
                 return true;
             }
         }
@@ -153,9 +150,9 @@ public class Hero extends Entity implements Force {
      * @return true if the hero has armor
      */
     public boolean hasArmor() {
-        for (Item item : items) {
+        for ( Item item : items ) {
             String itemName = item.getName();
-            if (itemName.equals("Helmet") || itemName.equals("Shield") || itemName.equals("Chestplate")) {
+            if ( itemName.equals("Helmet") || itemName.equals("Shield") || itemName.equals("Chestplate") ) {
                 return true;
             }
         }
@@ -166,9 +163,9 @@ public class Hero extends Entity implements Force {
      * @return true if the hero has a Holocron
      */
     public boolean hasHolocron() {
-        for (Item item : items) {
+        for ( Item item : items ) {
             String itemName = item.getName();
-            if (itemName.equals("Holocron")) {
+            if ( itemName.equals("Holocron") ) {
                 return true;
             }
         }
@@ -226,7 +223,7 @@ public class Hero extends Entity implements Force {
             int y = location.y + 1;
             location = new Point(location.x, y);
             return map.getCharAtLoc(location);
-        } catch (IndexOutOfBoundsException e) {
+        } catch ( IndexOutOfBoundsException e ) {
             int y = location.y - 1;
             location = new Point(location.x, y);
             return map.getCharAtLoc(location);
@@ -243,7 +240,7 @@ public class Hero extends Entity implements Force {
             int y = location.y - 1;
             location = new Point(location.x, y);
             return map.getCharAtLoc(location);
-        } catch (IndexOutOfBoundsException e) {
+        } catch ( IndexOutOfBoundsException e ) {
             int y = location.y + 1;
             location = new Point(location.x, y);
             return map.getCharAtLoc(location);
@@ -278,17 +275,17 @@ public class Hero extends Entity implements Force {
     }
     /**
      * Remove the first item in the hero inventory
-     * @return the name of the item removed
+     * @return the name of the item removed, null string if no item exists
      */
     public String removeFirstArmorItem(){
-        for(int i = 0;i < items.size();++i){
+        for( int i = 0;i < items.size();++i ){
             Item item = items.get(i);
-            if(item.getName().equals("Chestplate") || item.getName().equals("Helmet") || item.getName().equals("Shield")){
+            if( item.getName().equals("Chestplate") || item.getName().equals("Helmet") || item.getName().equals("Shield") ){
                 items.remove(i);
                 return item.getName();
             }
         }
-        throw new IllegalArgumentException("No item in the list");
+        return null;
     }
     /**
      * Perform a force slam
@@ -301,7 +298,7 @@ public class Hero extends Entity implements Force {
         final double THRESHOLD = 0.5;
         /* Force Slam is high-risk high-reward attack
          * deal minimal damage if doesn't pass threshold of success */
-        if (Double.compare(prob, THRESHOLD) < 0) {
+        if ( Double.compare(prob, THRESHOLD) < 0 ) {
             final int LOW_DAMAGE = 1;
             return LOW_DAMAGE * getLevel();
         } else {
