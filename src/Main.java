@@ -149,7 +149,6 @@ public class Main {
 
     /**
      * hero moves a random direction on the map
-     *
      * @param hero the hero of the game
      */
     public static void runAway(Hero hero) {
@@ -178,7 +177,6 @@ public class Main {
 
     /**
      * Does a single trial of a fight between the hero and the enemy
-     *
      * @param hero the current hero
      * @param e    the current enemy
      * @return true if the hero is still alive, false otherwise
@@ -194,19 +192,22 @@ public class Main {
                 e.attack( hero );
             }
         } else {
+            // Display victory screen
             System.out.println( "You defeated the " + e.getName() + "!" );
             Item item = e.getItem();
-            if ( hero.pickUpItem( item ) ) {
-                System.out.println(" You received a " + item.getName() + " from the enemy. ");
-            } else {
-                System.out.println(" Inventory full would you like to drop an item? ");
+            System.out.println("You received a " + item.getName() + " from the enemy. ");
+
+            // If the hero inventory is full
+            // give them the option to drop an item
+            if ( !hero.pickUpItem( item ) ) {
+                System.out.println("Inventory full would you like to drop an item? ");
                 // User decided to drop an item
-                if ( CheckInput.getYesNo() ) {
-                    System.out.println( "What item would you liked to drop?" );
+                if (CheckInput.getYesNo()) {
+                    System.out.println("What item would you liked to drop?");
                     hero.displayItems();
 
-                    int index = CheckInput.getIntRange( 1, 5 );
-                    hero.removeItem( index - 1 );
+                    int index = CheckInput.getIntRange(1, 5);
+                    hero.removeItem(index - 1);
                     hero.pickUpItem(item);
                 }
             }
@@ -217,7 +218,6 @@ public class Main {
 
     /**
      * Item room gives the hero a random item if they have available inventory
-     *
      * @param hero          the current hero of the game
      * @param map           the current map of the game
      * @param itemGenerator generates a random item
