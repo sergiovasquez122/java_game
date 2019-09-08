@@ -121,6 +121,9 @@ public class Hero extends Entity implements Force {
             Item item = items.get(i);
             if ( name.equals(item.getName()) ) {
                 items.remove(i);
+                // Exit method so that only one item is removed if
+                // there are duplicates
+                return;
             }
         }
     }
