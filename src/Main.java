@@ -87,7 +87,7 @@ public class Main {
             if ( CheckInput.getYesNo() ) {
                 hero.removeItem("Holocron");
 
-                // Give the hero a 50% chance of opening the door
+                // Give the hero a random chance of opening the door
                 final double THRESHOLD = .5;
                 moveOntoNextLevel = ( Math.random() >= THRESHOLD );
                 if ( !moveOntoNextLevel ) {
