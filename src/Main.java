@@ -132,9 +132,13 @@ public class Main {
                     runAway( hero );
                     return true;
                 case 3:
+                    // Hero phase they heal up to maxHp
                     final int HEAL_AMOUNT = 25;
                     hero.heal( HEAL_AMOUNT );
                     hero.removeItem( "Med Kit" );
+                    System.out.println("You heal");
+
+                    // Enemy Phase
                     if ( hero.hasArmor() ) {
                         String armorName = hero.removeFirstArmorItem();
                         System.out.println( hero.getName() + " defended himself with " + armorName );
