@@ -29,6 +29,7 @@ public class Map {
 
     public static void main(String[] args) {
         /* Test if the initial state of the first map is correct */
+        System.out.println("Test if the initial state of the first map is correct");
         Map map = new Map();
         map.displayMap(map.findStart());
         System.out.println();
@@ -43,6 +44,7 @@ public class Map {
         System.out.println();
 
         /* Test if the initial state of the second map is correct */
+        System.out.println("Test if the initial state of the second map is correct");
         map.loadMap(2);
         map.displayMap(map.findStart());
         System.out.println();
@@ -57,6 +59,7 @@ public class Map {
         System.out.println();
 
         /* Test if the initial state of the third map is correct */
+        System.out.println("Test if the initial state of the third map is correct");
         map.loadMap(3);
         map.displayMap(map.findStart());
         System.out.println();
@@ -70,10 +73,49 @@ public class Map {
         map.displayMap(map.findStart());
         System.out.println();
 
-        System.out.println("The character returned was " + map.getCharAtLoc(new Point(4, 4)));
-        map.removeCharAtLoc(new Point(4, 4));
+        /* Test if the initial state of the fourth map is correct */
+        System.out.println("Test if the initial state of the fourth map is correct");
+        map.loadMap(4);
         map.displayMap(map.findStart());
-        System.out.println("The character returned was " + map.getCharAtLoc(new Point(4, 4)));
+        System.out.println();
+
+        /* Reveal entire map and then display it */
+        for (int i = 0; i < MAP_SIZE; ++i) {
+            for (int j = 0; j < MAP_SIZE; ++j) {
+                map.reveal(new Point(i, j));
+            }
+        }
+        map.displayMap(map.findStart());
+        System.out.println();
+
+        /* Test if the initial state of the fifth map is correct */
+        System.out.println("Test if the initial state of the fifth map is correct");
+        map.loadMap(5);
+        map.displayMap(map.findStart());
+        System.out.println();
+
+        /* Reveal entire map and then display it */
+        for (int i = 0; i < MAP_SIZE; ++i) {
+            for (int j = 0; j < MAP_SIZE; ++j) {
+                map.reveal(new Point(i, j));
+            }
+        }
+        map.displayMap(map.findStart());
+        System.out.println();
+        /* Test if the initial state of the sixth map is correct */
+        System.out.println("Test if the initial state of the sixth map is correct");
+        map.loadMap(6);
+        map.displayMap(map.findStart());
+        System.out.println();
+
+        /* Reveal entire map and then display it */
+        for (int i = 0; i < MAP_SIZE; ++i) {
+            for (int j = 0; j < MAP_SIZE; ++j) {
+                map.reveal(new Point(i, j));
+            }
+        }
+        map.displayMap(map.findStart());
+        System.out.println();
     }
     /**
      * Loads the map with a given level
@@ -81,9 +123,9 @@ public class Map {
      */
     public void loadMap(int mapNum) {
         // currentMap is bounded between [1, 3] for the current amount of maps available
-        int currentMap = ( mapNum % 4 );
+        int currentMap = ( mapNum % 3 );
         if ( currentMap == 0 ) {
-            currentMap++;
+            currentMap += 3;
         }
 
         // Read from file if available
