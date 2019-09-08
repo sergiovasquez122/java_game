@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 /**
  * Hero Class - Representation of a Hero
- *
  * @author Sergio Vasquez
  */
 public class Hero extends Entity implements Force {
@@ -19,10 +18,8 @@ public class Hero extends Entity implements Force {
      * The current position of the Hero
      */
     private Point location;
-
     /**
      * Constructor - Constructs a hero at the specified map
-     *
      * @param name the name of the hero
      * @param map  the current map
      */
@@ -39,10 +36,8 @@ public class Hero extends Entity implements Force {
         hero.pickUpItem(new Item("Chestplate"));
         System.out.println(hero.removeFirstArmorItem());
     }
-
     /**
      * Attack an entity
-     *
      * @param e the entity to be attacked
      */
     public void attack(Entity e) {
@@ -71,14 +66,12 @@ public class Hero extends Entity implements Force {
         System.out.println(getName() + " hits " + e.getName() + " with " + currentAttack + " for " + attackDamage + " damage.");
         e.takeDamage(attackDamage);
     }
-
     /**
      * Display the attributes of the hero
      */
     public void display() {
         super.display();
     }
-
     /**
      * Display the inventory of the hero
      */
@@ -88,19 +81,15 @@ public class Hero extends Entity implements Force {
             System.out.println((i + 1) + ": " + items.get(i).getName());
         }
     }
-
     /**
      * Retrieve the amount of items the hero is carrying
-     *
      * @return the amount of items the hero is carrying
      */
     public int getNumItems() {
         return items.size();
     }
-
     /**
      * Pick up an item
-     *
      * @param i the item to be picked up
      * @return true if an item was picked up
      */
@@ -111,10 +100,8 @@ public class Hero extends Entity implements Force {
         items.add(i);
         return true;
     }
-
     /**
      * Remove a item with the given name
-     *
      * @param name the name of the item to be removed
      * @return a item with the given name
      */
@@ -127,20 +114,16 @@ public class Hero extends Entity implements Force {
         }
         throw new IllegalArgumentException("That item does not exist");
     }
-
     /**
      * Remove the item at the indicated index
-     *
      * @param index the index of the item to be removed
      * @return the item at the specified index
      */
     public Item removeItem(int index) {
         return items.remove(index);
     }
-
     /**
      * Checks if the hero has a Med Kit
-     *
      * @return true if the hero has a Med Kit
      */
     public boolean hasMedKit() {
@@ -152,10 +135,8 @@ public class Hero extends Entity implements Force {
         }
         return false;
     }
-
     /**
      * Checks if the hero has a key
-     *
      * @return true if the hero has a key
      */
     public boolean hasKey() {
@@ -167,10 +148,8 @@ public class Hero extends Entity implements Force {
         }
         return false;
     }
-
     /**
      * Checks if the hero has armor
-     *
      * @return true if the hero has armor
      */
     public boolean hasArmor() {
@@ -182,10 +161,8 @@ public class Hero extends Entity implements Force {
         }
         return false;
     }
-
     /**
      * Checks if the hero has a Holocron
-     *
      * @return true if the hero has a Holocron
      */
     public boolean hasHolocron() {
@@ -197,19 +174,15 @@ public class Hero extends Entity implements Force {
         }
         return false;
     }
-
     /**
      * Return the hero's location
-     *
      * @return the Point indicating the hero's location
      */
     public Point getLocation() {
         return location;
     }
-
     /**
      * Move the hero to the north
-     *
      * @return the character to the north of the hero
      */
     public char goNorth() {
@@ -225,10 +198,8 @@ public class Hero extends Entity implements Force {
             return map.getCharAtLoc(location);
         }
     }
-
     /**
      * Move the hero the south
-     *
      * @return the character to the south of the hero
      */
     public char goSouth() {
@@ -244,10 +215,8 @@ public class Hero extends Entity implements Force {
             return map.getCharAtLoc(location);
         }
     }
-
     /**
      * Move the hero to the east
-     *
      * @return the character to the east of the hero
      */
     public char goEast() {
@@ -263,10 +232,8 @@ public class Hero extends Entity implements Force {
             return map.getCharAtLoc(location);
         }
     }
-
     /**
      * Move the hero to the west
-     *
      * @return the character to the west of the hero
      */
     public char goWest() {
@@ -282,10 +249,8 @@ public class Hero extends Entity implements Force {
             return map.getCharAtLoc(location);
         }
     }
-
     /**
      * Perform a force push
-     *
      * @return the attack power of the force push
      */
     @Override
@@ -302,10 +267,8 @@ public class Hero extends Entity implements Force {
             return HIGH_DAMAGE * getLevel();
         }
     }
-
     /**
      * Perform a force choke
-     *
      * @return the attack power of the force choke
      */
     @Override
@@ -313,10 +276,9 @@ public class Hero extends Entity implements Force {
         final int MULTIPLER = 2;
         return MULTIPLER * getLevel();
     }
-
     /**
      * Remove the first item in the hero inventory
-     * @name the name of the item removed
+     * @return the name of the item removed
      */
     public String removeFirstArmorItem(){
         for(int i = 0;i < items.size();++i){
@@ -328,10 +290,8 @@ public class Hero extends Entity implements Force {
         }
         throw new IllegalArgumentException("No item in the list");
     }
-
     /**
      * Perform a force slam
-     *
      * @return the attack power of the force slam
      */
     @Override

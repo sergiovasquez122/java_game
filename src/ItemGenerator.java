@@ -6,15 +6,11 @@ import java.util.Scanner;
 
 /**
  * ItemGenerator class - Representation of single ItemGenerator
- *
  * @author Sergio Vasquez
  */
 public class ItemGenerator {
-    /**
-     * Contains all possible items to be generated
-     */
+    /** Contains all possible items to be generated */
     private ArrayList<Item> itemList;
-
     /**
      * Constructor - fills the ItemGenerator with possible items
      */
@@ -41,15 +37,18 @@ public class ItemGenerator {
             System.out.println(generator.generateItem().getName());
         }
     }
-
     /**
      * Retrieves a random item from the ItemGenerator
-     *
      * @return a random item from the ItemGenerator
      */
     public Item generateItem() {
+        // Get an random index in the range [0, itemList.size())
+        // with equal likelihood
         Random generator = new Random();
         int randomIndex = generator.nextInt(itemList.size());
+
+        // Create new instance of the itme
+        // from the template
         Item i = itemList.get(randomIndex);
         return new Item(i.getName());
     }

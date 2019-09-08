@@ -7,7 +7,6 @@ import java.util.Random;
 public class ForceEnemy extends Enemy implements Force {
     /**
      * Creates a force enemy with the specific attributes
-     *
      * @param name  The name of the enemy
      * @param level The level of the enemy
      * @param maxHp The level of the enemy

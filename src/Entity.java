@@ -13,15 +13,16 @@ public abstract class Entity {
     private int hp;
     /**
      * Constructor - sets the attributes of the entity
-     * @param n sets the name of the entity
-     * @param l sets the level of the entity
-     * @param m sets the max health of the entity
+     * @param name sets the name of the entity
+     * @param level sets the level of the entity
+     * @param maxHp sets the max health of the entity
      */
-    public Entity(String n, int l, int m){
-        name = n;
-        level = l;
-        maxHp = m;
-        hp = maxHp;
+    public Entity(String name, int level, int maxHp){
+        this.name = name;
+        this.level = level;
+        this.maxHp = maxHp;
+        // Entity health by default is maximum
+        hp = this.maxHp;
     }
     /**
      * Attack another entity
