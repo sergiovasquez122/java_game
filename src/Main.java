@@ -141,7 +141,7 @@ public class Main {
                         String armorName = hero.removeFirstArmorItem();
                         System.out.println(hero.getName() + " defended himself with " + armorName);
                     } else {
-                        hero.attack(hero);
+                        enemy.attack(hero);
                     }
                     break;
             }

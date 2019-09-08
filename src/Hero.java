@@ -24,6 +24,7 @@ public class Hero extends Entity implements Force {
      * @param map  the current map
      */
     public Hero(String name, Map map) {
+        // Default the hero level is one and their maxHp is 15
         super(name, 1, 15);
         items = new ArrayList<>();
         location = map.findStart();
@@ -35,6 +36,17 @@ public class Hero extends Entity implements Force {
         Hero hero = new Hero("Luke", map);
         hero.pickUpItem(new Item("Chestplate"));
         System.out.println(hero.removeFirstArmorItem());
+        hero.pickUpItem(new Item("Helmet"));
+        System.out.println(hero.removeFirstArmorItem());
+        hero.pickUpItem(new Item("Shield"));
+        System.out.println(hero.removeFirstArmorItem());
+
+        hero.pickUpItem(new Item("Med Kit"));
+        hero.removeItem("Med Kit");
+        hero.heal(25);
+        hero.display();
+        hero.takeDamage(25);
+        hero.display();
     }
     /**
      * Attack an entity
