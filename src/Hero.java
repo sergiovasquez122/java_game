@@ -6,17 +6,11 @@ import java.util.ArrayList;
  * @author Sergio Vasquez
  */
 public class Hero extends Entity implements Force {
-    /**
-     * Inventory of the Hero
-     */
+    /** Inventory of the Hero */
     private ArrayList<Item> items;
-    /**
-     * The map that the current currently is in
-     */
+    /** The map that the current currently is in */
     private Map map;
-    /**
-     * The current position of the Hero
-     */
+    /** The current position of the Hero */
     private Point location;
     /**
      * Constructor - Constructs a hero at the specified map

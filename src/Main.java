@@ -1,6 +1,10 @@
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * Main class - Where the game takes place
+ * @author Sergio Vasquez
+ */
 public class Main {
 
     public static void main(String[] args) {

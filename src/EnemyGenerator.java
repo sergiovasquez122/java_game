@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class EnemyGenerator {
     /** The list of all possible enemies */
     private ArrayList<Enemy> enemyList;
+    /** The list of all possible items */
     private ItemGenerator itemGenerator;
     /**
      * Constructor - Constructs a EnemyGenerator with a specified ItemGenerator
