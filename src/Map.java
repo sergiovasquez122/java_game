@@ -145,7 +145,8 @@ public class Map {
                 rowIndex++;
             }
             while ( read.hasNext() );
-
+            // Close the file
+            read.close();
         } catch ( FileNotFoundException fnf ) {
             System.out.println("File was not found");
         }

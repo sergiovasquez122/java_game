@@ -24,8 +24,9 @@ public class ItemGenerator {
             do {
                 String itemName = read.nextLine();
                 itemList.add(new Item(itemName));
-            }
-            while (read.hasNextLine());
+            } while (read.hasNextLine());
+            // Close the file
+            read.close();
         } catch (FileNotFoundException fnf) {
             System.out.println("File was not found");
         }

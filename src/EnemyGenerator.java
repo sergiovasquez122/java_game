@@ -42,6 +42,8 @@ public class EnemyGenerator {
                     enemyList.add(new ForceEnemy(enemyName, DEFAULT_LEVEL, baseHealth, item));
                 }
             } while (read.hasNextLine());
+            // Close the file
+            read.close();
         } catch (FileNotFoundException fnf) {
             System.out.println("File was not found");
         }
