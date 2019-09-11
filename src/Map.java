@@ -179,7 +179,7 @@ public class Map {
     }
     /**
      * Retrieve starting location of the map
-     * @return the Point which is the starting location of the map
+     * @return the Point which is the starting location of the map if not found return null
      */
     public Point findStart() {
         for ( int i = 0; i < map.length; ++i ) {
@@ -189,7 +189,7 @@ public class Map {
                 }
             }
         }
-        throw new RuntimeException("Starting location not found");
+        return null;
     }
     /**
      * Reveal the location of the point
