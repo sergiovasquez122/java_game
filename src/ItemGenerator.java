@@ -32,6 +32,7 @@ public class ItemGenerator {
         }
     }
 
+    /**
     public static void main(String[] args) {
         ItemGenerator generator = new ItemGenerator();
 
@@ -39,6 +40,7 @@ public class ItemGenerator {
             System.out.println(generator.generateItem().getName());
         }
     }
+     */
     /**
      * Retrieves a random item from the ItemGenerator
      * @return a random item from the ItemGenerator

@@ -107,6 +107,7 @@ public class ForceEnemy extends Enemy implements Force {
         }
     }
 
+    /**
     public static void main(String[] args) {
         Map map = new Map();
         Hero hero = new Hero("Luke", map);
@@ -115,4 +116,5 @@ public class ForceEnemy extends Enemy implements Force {
             forceEnemy.attack(hero);
         }
     }
+     */
 }

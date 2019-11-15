@@ -18,10 +18,6 @@ public class Enemy extends Entity {
         super(name, level, maxHp);
         this.item = item;
     }
-    public static void main(String[] args) {
-        Enemy enemy = new Enemy("Stormtrooper", 2, 10, new Item("Holocron"));
-        enemy.display();
-    }
     /**
      * Attack an entity
      * @param e the entity to be attacked

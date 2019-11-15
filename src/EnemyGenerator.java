@@ -50,6 +50,7 @@ public class EnemyGenerator {
         }
     }
 
+    /**
     public static void main(String[] args) {
         ItemGenerator itemGenerator = new ItemGenerator();
         EnemyGenerator enemyGenerator = new EnemyGenerator(itemGenerator);
@@ -66,6 +67,7 @@ public class EnemyGenerator {
         }
 
     }
+     */
     /**
      * Generate a random enemy with specified level
      * @param level the level of the enemy

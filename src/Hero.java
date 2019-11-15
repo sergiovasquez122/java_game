@@ -25,6 +25,7 @@ public class Hero extends Entity implements Force {
         this.map = map;
     }
 
+    /**
     public static void main(String[] args) {
         Map map = new Map();
         Hero hero = new Hero("Luke", map);
@@ -42,6 +43,7 @@ public class Hero extends Entity implements Force {
         hero.takeDamage(25);
         hero.display();
     }
+     */
     /**
      * Attack an entity
      * @param e the entity to be attacked
